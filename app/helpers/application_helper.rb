@@ -19,10 +19,10 @@ module ApplicationHelper
         text
     end
 
-    def p_name_text(e_no, p_name)
+    def pc_name_text(e_no, pc_name)
         e_no_text = "(" + sprintf("%d",e_no) + ")"
-        if p_name then
-            p_name.name.html_safe + e_no_text
+        if pc_name then
+            pc_name.name.html_safe + e_no_text
         else
             e_no_text
         end

@@ -31,8 +31,8 @@
         %td.formNum= text_field_tag :e_no_form, @e_no_form
       %tr
         %td  
-        %td= f.label :p_name_form, 'キャラクター名'
-        %td.formText= text_field_tag :p_name_form, @p_name_form
+        %td= f.label :pc_name_form, 'キャラクター名'
+        %td.formText= text_field_tag :pc_name_form, @pc_name_form
 <% attributes.reject(&:password_digest?).each do |attribute| -%>
       %tr
         %td  
@@ -65,7 +65,7 @@
     - @<%= plural_table_name %>.each do |<%= singular_table_name %>|
       %tr
         %td= <%= singular_table_name %>.result_no
-        %td= p_name_text(<%= singular_table_name %>.e_no, <%= singular_table_name %>.p_name)
+        %td= pc_name_text(<%= singular_table_name %>.e_no, <%= singular_table_name %>.pc_name)
 <% attributes.reject(&:password_digest?).each do |attribute| -%>
         %td= <%= singular_table_name %>.<%= attribute.name %>
 <% end -%>
