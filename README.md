@@ -5,7 +5,7 @@
 
 # サイト
 実際に動いているサイトです。 
-[ゼロ城試遊会データ小屋](http://data.teiki.org/zero_0)
+[ゼロ城試遊会データ小屋](https://data.teiki.org/zero_0)
 
 # 動作環境
 以下の環境での動作を確認しています  
@@ -20,7 +20,7 @@ gcc:5.2.1
 ・Railsの使い方を調べてなんやかんやして自分のRailsアプリが動くようにします。  
 ・このソースコードをダウンロードします。  
 
-    git clone git://github.com/white-mns/yojouhan_1_rails.git
+    git clone git://github.com/white-mns/zero_rails.git
 
 ・動かします。  
 
