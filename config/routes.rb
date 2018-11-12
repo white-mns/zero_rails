@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :regalia
   resources :specs
   resources :statuses
   resources :markets

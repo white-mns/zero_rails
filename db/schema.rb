@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_12_230212) do
+ActiveRecord::Schema.define(version: 2018_11_12_233509) do
 
   create_table "items", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "result_no"
@@ -122,6 +122,17 @@ ActiveRecord::Schema.define(version: 2018_11_12_230212) do
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_proper_names_on_name"
     t.index ["proper_id"], name: "index_proper_names_on_proper_id"
+  end
+
+  create_table "regalia", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "result_no"
+    t.integer "generate_no"
+    t.integer "e_no"
+    t.integer "regalia_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["e_no", "result_no", "generate_no"], name: "unique_eno"
+    t.index ["regalia_id"], name: "index_regalia_on_regalia_id"
   end
 
   create_table "specs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
