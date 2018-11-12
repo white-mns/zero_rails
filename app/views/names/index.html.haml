@@ -1,0 +1,92 @@
+- @page_title = "一覧"
+%h1= @page_title
+
+.card.desc
+  .card-body
+    = render "layouts/base_desc"
+    %p
+      %span.example_select.example_toggle.pointer
+        - help_icon
+        入力例
+        - act_desc(false)
+    #example.closed
+      = render "layouts/input_desc"
+= search_form_for @search do |f|
+  %table.search_toggle.table.table-striped.table-bordered.table-hover
+    %tbody.pointer
+      %tr
+        %td{colspan: "5"}
+          - act_icon(true)
+          絞り込み検索
+          - act_desc(true)
+    %tbody
+      %tr
+      %tr
+        %td  
+        %td= f.label :result_no_form, '更新回'
+        %td.formNum{colspan: "3"}= text_field_tag :result_no_form, @result_no_form
+      %tr
+        %td  
+        %td= f.label :e_no_form, 'Eno'
+        %td.formNum= text_field_tag :e_no_form, @e_no_form
+      %tr
+        %td  
+        %td= f.label :pc_name_form, 'キャラクター名'
+        %td.formText= text_field_tag :pc_name_form, @pc_name_form
+      %tr
+        %td  
+        %td= f.label :result_no_form, 'Result no'
+        %td.formNum= text_field_tag :result_no_form, @result_no_form
+      %tr
+        %td  
+        %td= f.label :generate_no_form, 'Generate no'
+        %td.formNum= text_field_tag :generate_no_form, @generate_no_form
+      %tr
+        %td  
+        %td= f.label :e_no_form, 'E no'
+        %td.formNum= text_field_tag :e_no_form, @e_no_form
+      %tr
+        %td  
+        %td= f.label :name_form, 'Name'
+        %td.formNum= text_field_tag :name_form, @name_form
+      %tr
+        %td  
+        %td= f.label :nickname_form, 'Nickname'
+        %td.formNum= text_field_tag :nickname_form, @nickname_form
+      %tr
+        %td  
+        %td= hidden_field_tag :is_form, 1
+        %td{colspan: "3"}
+          - search_submit_button
+
+
+= paginate(@names)
+%br
+ヒット数：#{ @count }件
+%br
+%br
+
+%table.table.table-striped.table-bordered.table-hover
+  %thead
+    %tr
+      %th= sort_link(@search, :result_no,'更新回', default_order: :desc)
+      %th= sort_link(@search, :e_no,'キャラクター(Eno)', default_order: :desc)
+      %th= sort_link(@search, :result_no, 'Result no', default_order: :desc)
+      %th= sort_link(@search, :generate_no, 'Generate no', default_order: :desc)
+      %th= sort_link(@search, :e_no, 'E no', default_order: :desc)
+      %th= sort_link(@search, :name, 'Name', default_order: :desc)
+      %th= sort_link(@search, :nickname, 'Nickname', default_order: :desc)
+      %th{colspan: "2"} 結果リンク
+  %tbody
+    - @names.each do |name|
+      %tr
+        %td= name.result_no
+        %td= pc_name_text(name.e_no, name.pc_name)
+        %td= name.result_no
+        %td= name.generate_no
+        %td= name.e_no
+        %td= name.name
+        %td= name.nickname
+        %td= character_link(name.e_no)
+        %td= character_old_link(@last_result, name.e_no, name.result_no, name.generate_no)
+= paginate(@names)
