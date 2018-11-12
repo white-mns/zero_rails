@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_12_045552) do
+ActiveRecord::Schema.define(version: 2018_11_12_212227) do
 
   create_table "items", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "result_no"
@@ -54,6 +54,52 @@ ActiveRecord::Schema.define(version: 2018_11_12_045552) do
     t.index ["unique_1"], name: "index_items_on_unique_1"
     t.index ["unique_2"], name: "index_items_on_unique_2"
     t.index ["value"], name: "index_items_on_value"
+  end
+
+  create_table "markets", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "result_no"
+    t.integer "generate_no"
+    t.integer "e_no"
+    t.integer "market_no"
+    t.string "name"
+    t.integer "kind_id"
+    t.integer "unique_1"
+    t.integer "unique_2"
+    t.integer "value"
+    t.integer "invation"
+    t.integer "encount"
+    t.integer "technic"
+    t.integer "goodwill"
+    t.integer "intelligence"
+    t.integer "stock"
+    t.integer "add_effect_id"
+    t.integer "strength"
+    t.integer "equip"
+    t.integer "fuka_1_id"
+    t.integer "fuka_2_id"
+    t.integer "charge"
+    t.integer "orig_name_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["add_effect_id"], name: "index_markets_on_add_effect_id"
+    t.index ["charge"], name: "index_markets_on_charge"
+    t.index ["e_no", "market_no", "result_no", "generate_no"], name: "unique_eno"
+    t.index ["encount"], name: "index_markets_on_encount"
+    t.index ["equip"], name: "index_markets_on_equip"
+    t.index ["fuka_1_id"], name: "index_markets_on_fuka_1_id"
+    t.index ["fuka_2_id"], name: "index_markets_on_fuka_2_id"
+    t.index ["goodwill"], name: "index_markets_on_goodwill"
+    t.index ["intelligence"], name: "index_markets_on_intelligence"
+    t.index ["invation"], name: "index_markets_on_invation"
+    t.index ["kind_id"], name: "index_markets_on_kind_id"
+    t.index ["name"], name: "index_markets_on_name"
+    t.index ["orig_name_id"], name: "index_markets_on_orig_name_id"
+    t.index ["stock"], name: "index_markets_on_stock"
+    t.index ["strength"], name: "index_markets_on_strength"
+    t.index ["technic"], name: "index_markets_on_technic"
+    t.index ["unique_1"], name: "index_markets_on_unique_1"
+    t.index ["unique_2"], name: "index_markets_on_unique_2"
+    t.index ["value"], name: "index_markets_on_value"
   end
 
   create_table "names", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

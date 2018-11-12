@@ -1,0 +1,197 @@
+- @page_title = "一覧"
+%h1= @page_title
+
+.card.desc
+  .card-header
+    検索仕様
+    - act_desc(true)
+  .card-body
+    = render "layouts/base_desc"
+    %p
+      %span.example_select.example_toggle.pointer
+        - help_icon
+        入力例
+        - act_desc(false)
+    #example.closed
+      = render "layouts/input_desc"
+= search_form_for @search do |f|
+  %table.search_toggle.table.table-striped.table-bordered.table-hover
+    %tbody.pointer
+      %tr
+        %td{colspan: "5"}
+          - act_icon(true)
+          絞り込み検索
+          - act_desc(true)
+    %tbody
+      %tr
+      %tr
+        %td.indent
+        %td= f.label :result_no_form, '更新回'
+        %td.formNum{colspan: "3"}= text_field_tag :result_no_form, @result_no_form
+      %tr
+        %td.indent
+        %td= f.label :e_no_form, 'Eno'
+        %td.formNum= text_field_tag :e_no_form, @e_no_form
+      %tr
+        %td.indent
+        %td= f.label :pc_name_form, 'キャラクター名'
+        %td.formText= text_field_tag :pc_name_form, @pc_name_form
+      %tr
+        %td.indent
+        %td= f.label :result_no_form, 'Result no'
+        %td.formNum= text_field_tag :result_no_form, @result_no_form
+      %tr
+        %td.indent
+        %td= f.label :generate_no_form, 'Generate no'
+        %td.formNum= text_field_tag :generate_no_form, @generate_no_form
+      %tr
+        %td.indent
+        %td= f.label :e_no_form, 'E no'
+        %td.formNum= text_field_tag :e_no_form, @e_no_form
+      %tr
+        %td.indent
+        %td= f.label :market_no_form, 'Market no'
+        %td.formNum= text_field_tag :market_no_form, @market_no_form
+      %tr
+        %td.indent
+        %td= f.label :name_form, 'Name'
+        %td.formNum= text_field_tag :name_form, @name_form
+      %tr
+        %td.indent
+        %td= f.label :kind_id_form, 'Kind'
+        %td.formNum= text_field_tag :kind_id_form, @kind_id_form
+      %tr
+        %td.indent
+        %td= f.label :unique_1_form, 'Unique 1'
+        %td.formNum= text_field_tag :unique_1_form, @unique_1_form
+      %tr
+        %td.indent
+        %td= f.label :unique_2_form, 'Unique 2'
+        %td.formNum= text_field_tag :unique_2_form, @unique_2_form
+      %tr
+        %td.indent
+        %td= f.label :value_form, 'Value'
+        %td.formNum= text_field_tag :value_form, @value_form
+      %tr
+        %td.indent
+        %td= f.label :invation_form, 'Invation'
+        %td.formNum= text_field_tag :invation_form, @invation_form
+      %tr
+        %td.indent
+        %td= f.label :encount_form, 'Encount'
+        %td.formNum= text_field_tag :encount_form, @encount_form
+      %tr
+        %td.indent
+        %td= f.label :technic_form, 'Technic'
+        %td.formNum= text_field_tag :technic_form, @technic_form
+      %tr
+        %td.indent
+        %td= f.label :goodwill_form, 'Goodwill'
+        %td.formNum= text_field_tag :goodwill_form, @goodwill_form
+      %tr
+        %td.indent
+        %td= f.label :intelligence_form, 'Intelligence'
+        %td.formNum= text_field_tag :intelligence_form, @intelligence_form
+      %tr
+        %td.indent
+        %td= f.label :stock_form, 'Stock'
+        %td.formNum= text_field_tag :stock_form, @stock_form
+      %tr
+        %td.indent
+        %td= f.label :add_effect_id_form, 'Add effect'
+        %td.formNum= text_field_tag :add_effect_id_form, @add_effect_id_form
+      %tr
+        %td.indent
+        %td= f.label :strength_form, 'Strength'
+        %td.formNum= text_field_tag :strength_form, @strength_form
+      %tr
+        %td.indent
+        %td= f.label :equip_form, 'Equip'
+        %td.formNum= text_field_tag :equip_form, @equip_form
+      %tr
+        %td.indent
+        %td= f.label :fuka_1_id_form, 'Fuka 1'
+        %td.formNum= text_field_tag :fuka_1_id_form, @fuka_1_id_form
+      %tr
+        %td.indent
+        %td= f.label :fuka_2_id_form, 'Fuka 2'
+        %td.formNum= text_field_tag :fuka_2_id_form, @fuka_2_id_form
+      %tr
+        %td.indent
+        %td= f.label :charge_form, 'Charge'
+        %td.formNum= text_field_tag :charge_form, @charge_form
+      %tr
+        %td.indent
+        %td= f.label :orig_name_id_form, 'Orig name'
+        %td.formNum= text_field_tag :orig_name_id_form, @orig_name_id_form
+      %tr
+        %td.indent
+        %td.indent= hidden_field_tag :is_form, 1
+        %td{colspan: "3"}
+          - search_submit_button
+
+
+= paginate(@markets)
+%br
+ヒット数：#{ @count }件
+%br
+%br
+
+%table.table.table-striped.table-bordered.table-hover
+  %thead
+    %tr
+      %th= sort_link(@search, :result_no,'更新回', default_order: :desc)
+      %th= sort_link(@search, :e_no,'キャラクター(Eno)', default_order: :desc)
+      %th= sort_link(@search, :result_no, 'Result no', default_order: :desc)
+      %th= sort_link(@search, :generate_no, 'Generate no', default_order: :desc)
+      %th= sort_link(@search, :e_no, 'E no', default_order: :desc)
+      %th= sort_link(@search, :market_no, 'Market no', default_order: :desc)
+      %th= sort_link(@search, :name, 'Name', default_order: :desc)
+      %th= sort_link(@search, :kind_id, 'Kind', default_order: :desc)
+      %th= sort_link(@search, :unique_1, 'Unique 1', default_order: :desc)
+      %th= sort_link(@search, :unique_2, 'Unique 2', default_order: :desc)
+      %th= sort_link(@search, :value, 'Value', default_order: :desc)
+      %th= sort_link(@search, :invation, 'Invation', default_order: :desc)
+      %th= sort_link(@search, :encount, 'Encount', default_order: :desc)
+      %th= sort_link(@search, :technic, 'Technic', default_order: :desc)
+      %th= sort_link(@search, :goodwill, 'Goodwill', default_order: :desc)
+      %th= sort_link(@search, :intelligence, 'Intelligence', default_order: :desc)
+      %th= sort_link(@search, :stock, 'Stock', default_order: :desc)
+      %th= sort_link(@search, :add_effect_id, 'Add effect', default_order: :desc)
+      %th= sort_link(@search, :strength, 'Strength', default_order: :desc)
+      %th= sort_link(@search, :equip, 'Equip', default_order: :desc)
+      %th= sort_link(@search, :fuka_1_id, 'Fuka 1', default_order: :desc)
+      %th= sort_link(@search, :fuka_2_id, 'Fuka 2', default_order: :desc)
+      %th= sort_link(@search, :charge, 'Charge', default_order: :desc)
+      %th= sort_link(@search, :orig_name_id, 'Orig name', default_order: :desc)
+      %th{colspan: "2"} 結果リンク
+  %tbody
+    - @markets.each do |market|
+      %tr
+        %td= market.result_no
+        %td= pc_name_text(market.e_no, market.pc_name)
+        %td= market.result_no
+        %td= market.generate_no
+        %td= market.e_no
+        %td= market.market_no
+        %td= market.name
+        %td= market.kind_id
+        %td= market.unique_1
+        %td= market.unique_2
+        %td= market.value
+        %td= market.invation
+        %td= market.encount
+        %td= market.technic
+        %td= market.goodwill
+        %td= market.intelligence
+        %td= market.stock
+        %td= market.add_effect_id
+        %td= market.strength
+        %td= market.equip
+        %td= market.fuka_1_id
+        %td= market.fuka_2_id
+        %td= market.charge
+        %td= market.orig_name_id
+        %td= character_link(market.e_no)
+        %td= character_old_link(@last_result, market.e_no, market.result_no, market.generate_no)
+= paginate(@markets)
