@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_12_212227) do
+ActiveRecord::Schema.define(version: 2018_11_12_221952) do
 
   create_table "items", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "result_no"
@@ -122,6 +122,31 @@ ActiveRecord::Schema.define(version: 2018_11_12_212227) do
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_proper_names_on_name"
     t.index ["proper_id"], name: "index_proper_names_on_proper_id"
+  end
+
+  create_table "statuses", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "result_no"
+    t.integer "generate_no"
+    t.integer "e_no"
+    t.integer "ranking_rate"
+    t.integer "rp"
+    t.float "acc_total"
+    t.float "acc_attack"
+    t.float "acc_support"
+    t.float "acc_defense"
+    t.integer "funds"
+    t.integer "exp"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["acc_attack"], name: "index_statuses_on_acc_attack"
+    t.index ["acc_defense"], name: "index_statuses_on_acc_defense"
+    t.index ["acc_support"], name: "index_statuses_on_acc_support"
+    t.index ["acc_total"], name: "index_statuses_on_acc_total"
+    t.index ["e_no", "result_no", "generate_no"], name: "unique_eno"
+    t.index ["exp"], name: "index_statuses_on_exp"
+    t.index ["funds"], name: "index_statuses_on_funds"
+    t.index ["ranking_rate"], name: "index_statuses_on_ranking_rate"
+    t.index ["rp"], name: "index_statuses_on_rp"
   end
 
 end
