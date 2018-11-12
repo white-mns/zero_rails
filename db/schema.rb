@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_12_221952) do
+ActiveRecord::Schema.define(version: 2018_11_12_230212) do
 
   create_table "items", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "result_no"
@@ -122,6 +122,29 @@ ActiveRecord::Schema.define(version: 2018_11_12_221952) do
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_proper_names_on_name"
     t.index ["proper_id"], name: "index_proper_names_on_proper_id"
+  end
+
+  create_table "specs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "result_no"
+    t.integer "generate_no"
+    t.integer "e_no"
+    t.integer "invation"
+    t.integer "encount"
+    t.integer "technic"
+    t.integer "goodwill"
+    t.integer "intelligence"
+    t.integer "drink"
+    t.integer "illegality"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["drink"], name: "index_specs_on_drink"
+    t.index ["e_no", "result_no", "generate_no"], name: "unique_eno"
+    t.index ["encount"], name: "index_specs_on_encount"
+    t.index ["goodwill"], name: "index_specs_on_goodwill"
+    t.index ["illegality"], name: "index_specs_on_illegality"
+    t.index ["intelligence"], name: "index_specs_on_intelligence"
+    t.index ["invation"], name: "index_specs_on_invation"
+    t.index ["technic"], name: "index_specs_on_technic"
   end
 
   create_table "statuses", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
