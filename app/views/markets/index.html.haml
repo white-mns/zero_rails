@@ -1,8 +1,9 @@
-- @page_title = "一覧"
+- @page_title = "マーケット一覧"
 %h1= @page_title
 
 .card.desc
   .card-header
+    - act_icon(true)
     検索仕様
     - act_desc(true)
   .card-body
@@ -32,98 +33,74 @@
         %td.indent
         %td= f.label :e_no_form, 'Eno'
         %td.formNum= text_field_tag :e_no_form, @e_no_form
-      %tr
-        %td.indent
         %td= f.label :pc_name_form, 'キャラクター名'
         %td.formText= text_field_tag :pc_name_form, @pc_name_form
       %tr
         %td.indent
-        %td= f.label :result_no_form, 'Result no'
-        %td.formNum= text_field_tag :result_no_form, @result_no_form
+        %td= f.label :name_form, 'アイテム名'
+        %td.formText{colspan: "3"}= text_field_tag :name_form, @name_form
+    %tbody.tbody_toggle.pointer
+      %tr
+        %td{:colspan => "5"}
+          = hidden_field_tag :base_first, @base_first
+          = hidden_field_tag :show_detail_1, @show_detail_1
+          - act_icon(false)
+          = label_tag :show_detail_1, '　基礎情報を表示する', class: "act_desc"
+          = label_tag :show_detail_1, '　基礎情報を非表示にする', class: "act_desc closed"
+          %div.act_desc 　種別、元の名前、付加A、付加B、資産投入、強度
+    %tbody
       %tr
         %td.indent
-        %td= f.label :generate_no_form, 'Generate no'
-        %td.formNum= text_field_tag :generate_no_form, @generate_no_form
+        %td= f.label :kind_form, '種別'
+        %td.formText= text_field_tag :kind_form, @kind_form
+        %td= f.label :orig_name_form, '元の名前'
+        %td.formText= text_field_tag :orig_name_form, @orig_name_form
       %tr
         %td.indent
-        %td= f.label :e_no_form, 'E no'
-        %td.formNum= text_field_tag :e_no_form, @e_no_form
+        %td= f.label :fuka_1_form, '付加A'
+        %td.formText= text_field_tag :fuka_1_form, @fuka_1_form
+        %td= f.label :fuka_2_form, '付加B'
+        %td.formText= text_field_tag :fuka_2_form, @fuka_2_form
       %tr
         %td.indent
-        %td= f.label :market_no_form, 'Market no'
-        %td.formNum= text_field_tag :market_no_form, @market_no_form
+        %td= f.label :charge_form, '資産投入'
+        %td.formNum= text_field_tag :charge_form, @charge_form
+        %td= f.label :strength_form, '強度'
+        %td.formNum{colspan: "3"}= text_field_tag :strength_form, @strength_form
+    %tbody.tbody_toggle.pointer
+      %tr
+        %td{:colspan => "5"}
+          = hidden_field_tag :show_detail_2, @show_detail_2
+          - act_icon(false)
+          = label_tag :show_detail_1, '　詳細その1を表示する', class: "act_desc"
+          = label_tag :show_detail_1, '　詳細その1を非表示にする', class: "act_desc closed"
+          %div.act_desc 　価格、侵攻速度、エンカウント、機巧技術、好感度、知性、追加効果
+    %tbody.closed
       %tr
         %td.indent
-        %td= f.label :name_form, 'Name'
-        %td.formNum= text_field_tag :name_form, @name_form
+        %td= f.label :value_form, '価格'
+        %td.formNum{colspan: "3"}= text_field_tag :value_form, @value_form
       %tr
         %td.indent
-        %td= f.label :kind_id_form, 'Kind'
-        %td.formNum= text_field_tag :kind_id_form, @kind_id_form
-      %tr
-        %td.indent
-        %td= f.label :unique_1_form, 'Unique 1'
-        %td.formNum= text_field_tag :unique_1_form, @unique_1_form
-      %tr
-        %td.indent
-        %td= f.label :unique_2_form, 'Unique 2'
-        %td.formNum= text_field_tag :unique_2_form, @unique_2_form
-      %tr
-        %td.indent
-        %td= f.label :value_form, 'Value'
-        %td.formNum= text_field_tag :value_form, @value_form
-      %tr
-        %td.indent
-        %td= f.label :invation_form, 'Invation'
+        %td= f.label :invation_form, '侵攻速度'
         %td.formNum= text_field_tag :invation_form, @invation_form
-      %tr
-        %td.indent
-        %td= f.label :encount_form, 'Encount'
+        %td= f.label :encount_form, 'エンカウント'
         %td.formNum= text_field_tag :encount_form, @encount_form
       %tr
         %td.indent
-        %td= f.label :technic_form, 'Technic'
+        %td= f.label :technic_form, '機巧技術'
         %td.formNum= text_field_tag :technic_form, @technic_form
-      %tr
-        %td.indent
-        %td= f.label :goodwill_form, 'Goodwill'
+        %td= f.label :goodwill_form, '好感度'
         %td.formNum= text_field_tag :goodwill_form, @goodwill_form
       %tr
         %td.indent
-        %td= f.label :intelligence_form, 'Intelligence'
-        %td.formNum= text_field_tag :intelligence_form, @intelligence_form
+        %td= f.label :intelligence_form, '知性'
+        %td.formNum{colspan: "3"}= text_field_tag :intelligence_form, @intelligence_form
       %tr
         %td.indent
-        %td= f.label :stock_form, 'Stock'
-        %td.formNum= text_field_tag :stock_form, @stock_form
-      %tr
-        %td.indent
-        %td= f.label :add_effect_id_form, 'Add effect'
-        %td.formNum= text_field_tag :add_effect_id_form, @add_effect_id_form
-      %tr
-        %td.indent
-        %td= f.label :strength_form, 'Strength'
-        %td.formNum= text_field_tag :strength_form, @strength_form
-      %tr
-        %td.indent
-        %td= f.label :equip_form, 'Equip'
-        %td.formNum= text_field_tag :equip_form, @equip_form
-      %tr
-        %td.indent
-        %td= f.label :fuka_1_id_form, 'Fuka 1'
-        %td.formNum= text_field_tag :fuka_1_id_form, @fuka_1_id_form
-      %tr
-        %td.indent
-        %td= f.label :fuka_2_id_form, 'Fuka 2'
-        %td.formNum= text_field_tag :fuka_2_id_form, @fuka_2_id_form
-      %tr
-        %td.indent
-        %td= f.label :charge_form, 'Charge'
-        %td.formNum= text_field_tag :charge_form, @charge_form
-      %tr
-        %td.indent
-        %td= f.label :orig_name_id_form, 'Orig name'
-        %td.formNum= text_field_tag :orig_name_id_form, @orig_name_id_form
+        %td= f.label :add_effect_form, '追加効果'
+        %td.formText{colspan: "3"}= text_field_tag :add_effect_form, @add_effect_form
+    %tbody
       %tr
         %td.indent
         %td.indent= hidden_field_tag :is_form, 1
@@ -142,56 +119,44 @@
     %tr
       %th= sort_link(@search, :result_no,'更新回', default_order: :desc)
       %th= sort_link(@search, :e_no,'キャラクター(Eno)', default_order: :desc)
-      %th= sort_link(@search, :result_no, 'Result no', default_order: :desc)
-      %th= sort_link(@search, :generate_no, 'Generate no', default_order: :desc)
-      %th= sort_link(@search, :e_no, 'E no', default_order: :desc)
-      %th= sort_link(@search, :market_no, 'Market no', default_order: :desc)
-      %th= sort_link(@search, :name, 'Name', default_order: :desc)
-      %th= sort_link(@search, :kind_id, 'Kind', default_order: :desc)
-      %th= sort_link(@search, :unique_1, 'Unique 1', default_order: :desc)
-      %th= sort_link(@search, :unique_2, 'Unique 2', default_order: :desc)
-      %th= sort_link(@search, :value, 'Value', default_order: :desc)
-      %th= sort_link(@search, :invation, 'Invation', default_order: :desc)
-      %th= sort_link(@search, :encount, 'Encount', default_order: :desc)
-      %th= sort_link(@search, :technic, 'Technic', default_order: :desc)
-      %th= sort_link(@search, :goodwill, 'Goodwill', default_order: :desc)
-      %th= sort_link(@search, :intelligence, 'Intelligence', default_order: :desc)
-      %th= sort_link(@search, :stock, 'Stock', default_order: :desc)
-      %th= sort_link(@search, :add_effect_id, 'Add effect', default_order: :desc)
-      %th= sort_link(@search, :strength, 'Strength', default_order: :desc)
-      %th= sort_link(@search, :equip, 'Equip', default_order: :desc)
-      %th= sort_link(@search, :fuka_1_id, 'Fuka 1', default_order: :desc)
-      %th= sort_link(@search, :fuka_2_id, 'Fuka 2', default_order: :desc)
-      %th= sort_link(@search, :charge, 'Charge', default_order: :desc)
-      %th= sort_link(@search, :orig_name_id, 'Orig name', default_order: :desc)
+      %th= sort_link(@search, :name, 'アイテム名', default_order: :desc)
+      - if @show_detail_1 == "1"
+        %th.sep= sort_link(@search, :kind, '種別', default_order: :desc)
+        %th= sort_link(@search, :orig_name, '詳細', default_order: :desc)
+        %th.sep= sort_link(@search, :fuka_1, '付加A', default_order: :desc)
+        %th= sort_link(@search, :fuka_2, '付加B', default_order: :desc)
+        %th= sort_link(@search, :strength, '強度', default_order: :desc)
+        %th= sort_link(@search, :charge, '資産投入', default_order: :desc)
+      - if @show_detail_2 == "1"
+        %th.sep= sort_link(@search, :value, '価格', default_order: :desc)
+        %th= sort_link(@search, :invation, '侵攻速度', default_order: :desc)
+        %th= sort_link(@search, :encount, 'エンカウント', default_order: :desc)
+        %th= sort_link(@search, :technic, '機巧技術', default_order: :desc)
+        %th= sort_link(@search, :goodwill, '好感度', default_order: :desc)
+        %th= sort_link(@search, :intelligence, '知性', default_order: :desc)
+        %th= sort_link(@search, :add_effect_id, '追加効果', default_order: :desc)
       %th{colspan: "2"} 結果リンク
   %tbody
     - @markets.each do |market|
       %tr
         %td= market.result_no
         %td= pc_name_text(market.e_no, market.pc_name)
-        %td= market.result_no
-        %td= market.generate_no
-        %td= market.e_no
-        %td= market.market_no
         %td= market.name
-        %td= market.kind_id
-        %td= market.unique_1
-        %td= market.unique_2
-        %td= market.value
-        %td= market.invation
-        %td= market.encount
-        %td= market.technic
-        %td= market.goodwill
-        %td= market.intelligence
-        %td= market.stock
-        %td= market.add_effect_id
-        %td= market.strength
-        %td= market.equip
-        %td= market.fuka_1_id
-        %td= market.fuka_2_id
-        %td= market.charge
-        %td= market.orig_name_id
+        - if @show_detail_1 == "1"
+          %td.sep= market.kind.name if market.kind
+          %td= market.orig.name if market.orig
+          %td.sep= market.fuka_1.name if market.fuka_1
+          %td= market.fuka_2.name if market.fuka_2
+          %td= market.strength
+          %td= market.charge
+        - if @show_detail_2 == "1"
+          %td.sep= market.value
+          %td= market.invation
+          %td= market.encount
+          %td= market.technic
+          %td= market.goodwill
+          %td= market.intelligence
+          %td= market.add_effect.name if market.add_effect
         %td= character_link(market.e_no)
         %td= character_old_link(@last_result, market.e_no, market.result_no, market.generate_no)
 = paginate(@markets)
