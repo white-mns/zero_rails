@@ -5,8 +5,8 @@ class ProperNamesController < ApplicationController
   # GET /proper_names
   def index
     param_set
-    @count	= ProperName.notnil().includes(:pc_name).search(params[:q]).result.count()
-    @search	= ProperName.notnil().includes(:pc_name).page(params[:page]).search(params[:q])
+    @count	= ProperName.search(params[:q]).result.count()
+    @search	= ProperName.page(params[:page]).search(params[:q])
     @search.sorts = 'id asc' if @search.sorts.empty?
     @proper_names	= @search.result.per(50)
   end
@@ -19,9 +19,8 @@ class ProperNamesController < ApplicationController
         params["result_no_form"] ||= sprintf('%d',@last_result)
     end
     
-    reference_text_assign(params, "pc_name_name", "pc_name_form")
     reference_number_assign(params, "proper_id", "proper_id_form")
-    reference_number_assign(params, "name", "name_form")
+    reference_text_assign(params, "name", "name_form")
     
     @pc_name_form = params["pc_name_form"]
     @proper_id_form = params["proper_id_form"]

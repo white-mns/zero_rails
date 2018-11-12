@@ -1,4 +1,4 @@
-- @page_title = "一覧"
+- @page_title = "固有名詞一覧"
 %h1= @page_title
 
 .card.desc
@@ -23,24 +23,12 @@
       %tr
       %tr
         %td  
-        %td= f.label :result_no_form, '更新回'
-        %td.formNum{colspan: "3"}= text_field_tag :result_no_form, @result_no_form
-      %tr
-        %td  
-        %td= f.label :e_no_form, 'Eno'
-        %td.formNum= text_field_tag :e_no_form, @e_no_form
-      %tr
-        %td  
-        %td= f.label :pc_name_form, 'キャラクター名'
-        %td.formText= text_field_tag :pc_name_form, @pc_name_form
-      %tr
-        %td  
-        %td= f.label :proper_id_form, 'Proper'
+        %td= f.label :proper_id_form, 'ID'
         %td.formNum= text_field_tag :proper_id_form, @proper_id_form
       %tr
         %td  
-        %td= f.label :name_form, 'Name'
-        %td.formNum= text_field_tag :name_form, @name_form
+        %td= f.label :name_form, '固有名詞'
+        %td.formText= text_field_tag :name_form, @name_form
       %tr
         %td  
         %td= hidden_field_tag :is_form, 1
@@ -57,18 +45,11 @@
 %table.table.table-striped.table-bordered.table-hover
   %thead
     %tr
-      %th= sort_link(@search, :result_no,'更新回', default_order: :desc)
-      %th= sort_link(@search, :e_no,'キャラクター(Eno)', default_order: :desc)
-      %th= sort_link(@search, :proper_id, 'Proper', default_order: :desc)
-      %th= sort_link(@search, :name, 'Name', default_order: :desc)
-      %th{colspan: "2"} 結果リンク
+      %th= sort_link(@search, :proper_id, 'ID', default_order: :desc)
+      %th= sort_link(@search, :name, '固有名詞', default_order: :desc)
   %tbody
     - @proper_names.each do |proper_name|
       %tr
-        %td= proper_name.result_no
-        %td= pc_name_text(proper_name.e_no, proper_name.pc_name)
         %td= proper_name.proper_id
         %td= proper_name.name
-        %td= character_link(proper_name.e_no)
-        %td= character_old_link(@last_result, proper_name.e_no, proper_name.result_no, proper_name.generate_no)
 = paginate(@proper_names)
