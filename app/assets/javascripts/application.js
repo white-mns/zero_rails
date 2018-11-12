@@ -31,7 +31,19 @@ function search_close() {
     });
 };
 
+function desc_close() {
+    $(".desc .card-header").each( function() {
+        $(this).next().toggle();
+        $(this).find(".act_desc").toggle();
+    });
+};
+
 function set_triggers() {
+    $(".desc .card-header").on("click", function() {
+        $(this).next().slideToggle(200);
+        $(this).find(".act_desc").toggle();
+    });
+
     $(".example_toggle").on("click", function() {
         $(this).parent().next().slideToggle(200);
         $(this).find(".act_desc").toggle();
@@ -75,8 +87,9 @@ var turboReady = function(){
 	var url     = location.href;
     var params  = url.split("?");
 
-	if(params[1]){
+	if(params[1] || window.innerWidth < 767){
         search_close();
+        desc_close();
 	}
 
     $('FORM').cleanQuery();

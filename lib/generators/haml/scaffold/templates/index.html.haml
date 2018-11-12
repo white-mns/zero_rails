@@ -2,6 +2,9 @@
 %h1= @page_title
 
 .card.desc
+  .card-header
+    検索仕様
+    - act_desc(true)
   .card-body
     = render "layouts/base_desc"
     %p
@@ -22,26 +25,26 @@
     %tbody
       %tr
       %tr
-        %td  
+        %td.indent
         %td= f.label :result_no_form, '更新回'
         %td.formNum{colspan: "3"}= text_field_tag :result_no_form, @result_no_form
       %tr
-        %td  
+        %td.indent
         %td= f.label :e_no_form, 'Eno'
         %td.formNum= text_field_tag :e_no_form, @e_no_form
       %tr
-        %td  
+        %td.indent
         %td= f.label :pc_name_form, 'キャラクター名'
         %td.formText= text_field_tag :pc_name_form, @pc_name_form
 <% attributes.reject(&:password_digest?).each do |attribute| -%>
       %tr
-        %td  
+        %td.indent
         %td= f.label :<%= attribute.name %>_form, '<%= attribute.human_name %>'
         %td.formNum= text_field_tag :<%= attribute.name %>_form, @<%= attribute.name %>_form
 <% end -%>
       %tr
-        %td  
-        %td= hidden_field_tag :is_form, 1
+        %td.indent
+        %td.indent= hidden_field_tag :is_form, 1
         %td{colspan: "3"}
           - search_submit_button
 

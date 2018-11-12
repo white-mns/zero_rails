@@ -5,6 +5,7 @@
     = csrf_meta_tags
     = csp_meta_tag
 
+    %meta{name: "viewport", content:"width=device-width, initial-scale=1"}
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
     = javascript_include_tag "https://www.gstatic.com/charts/loader.js"
@@ -31,15 +32,16 @@
                 .dropdown-divider
 
     .container
-      .row
-        .col-md-12
-          = yield
+      .bs-docs-section.clearfix
+        .row
+          .col-md-12
+            = yield
       
-      %footer
-        %p
-          制作#{link_to "@white_mns", "http://twitter.com/white_mns"}
-          %br
-          = link_to "プライバシーポリシー", top_page_privacy_path
-          %br
-          ソースコード [#{link_to "解析部分", "https://github.com/white-mns/zero_parse"}] [#{link_to "表示部分", "https://github.com/white-mns/zero_rails"}]
-      = render 'layouts/analytics'
+        %footer
+          %p
+            制作#{link_to "@white_mns", "http://twitter.com/white_mns"}
+            %br
+            = link_to "プライバシーポリシー", top_page_privacy_path
+            %br
+            ソースコード [#{link_to "解析部分", "https://github.com/white-mns/zero_parse"}] [#{link_to "表示部分", "https://github.com/white-mns/zero_rails"}]
+        = render 'layouts/analytics'
