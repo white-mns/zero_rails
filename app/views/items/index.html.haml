@@ -3,6 +3,7 @@
 
 .card.desc
   .card-header
+    - act_icon(true)
     検索仕様
     - act_desc(true)
   .card-body
@@ -46,13 +47,13 @@
           - act_icon(false)
           = label_tag :show_detail_1, '　基礎情報を表示する', class: "act_desc"
           = label_tag :show_detail_1, '　基礎情報を非表示にする', class: "act_desc closed"
-          %div.act_desc 　種別、パーツ種別詳細、付加A、付加B、強度、装備
+          %div.act_desc 　種別、元の名前、付加A、付加B、強度、在庫、装備
     %tbody
       %tr
         %td.indent
         %td= f.label :kind_form, '種別'
         %td.formText= text_field_tag :kind_form, @kind_form
-        %td= f.label :orig_name_form, 'パーツ種別詳細'
+        %td= f.label :orig_name_form, '元の名前'
         %td.formText= text_field_tag :orig_name_form, @orig_name_form
       %tr
         %td.indent
@@ -84,7 +85,7 @@
           - act_icon(false)
           = label_tag :show_detail_1, '　詳細その1を表示する', class: "act_desc"
           = label_tag :show_detail_1, '　詳細その1を非表示にする', class: "act_desc closed"
-          %div.act_desc 　AP、消費EN、特殊1、特殊2、旋回速度、防御属性、防御値、金額、弾薬費、重量
+          %div.act_desc 　価格、侵攻速度、エンカウント、機巧技術、好感度、知性、追加効果
     %tbody.closed
       %tr
         %td.indent
@@ -116,7 +117,6 @@
         %td.indent= hidden_field_tag :is_form, 1
         %td{colspan: "3"}
           - search_submit_button
-
 
 = paginate(@items)
 %br
