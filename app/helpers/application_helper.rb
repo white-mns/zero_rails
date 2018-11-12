@@ -32,7 +32,7 @@ module ApplicationHelper
         if e_no <= 0 then return end
 
         file_name = sprintf("%04d",e_no)
-        link_to " 結果", "http://blacktea.sakura.ne.jp/teaconvini/c"+file_name+".html", :target => "_blank"
+        link_to " 結果", "http://blacktea.sakura.ne.jp/teaconvini/RESULT/c"+file_name+".html", :target => "_blank"
     end
     
     def character_old_link(last_result_no, e_no, result_no, generate_no)

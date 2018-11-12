@@ -1,4 +1,4 @@
-- @page_title = "一覧"
+- @page_title = "キャラクター名一覧"
 %h1= @page_title
 
 .card.desc
@@ -32,27 +32,11 @@
       %tr
         %td  
         %td= f.label :pc_name_form, 'キャラクター名'
-        %td.formText= text_field_tag :pc_name_form, @pc_name_form
+        %td.formText= text_field_tag :name_form, @name_form
       %tr
         %td  
-        %td= f.label :result_no_form, 'Result no'
-        %td.formNum= text_field_tag :result_no_form, @result_no_form
-      %tr
-        %td  
-        %td= f.label :generate_no_form, 'Generate no'
-        %td.formNum= text_field_tag :generate_no_form, @generate_no_form
-      %tr
-        %td  
-        %td= f.label :e_no_form, 'E no'
-        %td.formNum= text_field_tag :e_no_form, @e_no_form
-      %tr
-        %td  
-        %td= f.label :name_form, 'Name'
-        %td.formNum= text_field_tag :name_form, @name_form
-      %tr
-        %td  
-        %td= f.label :nickname_form, 'Nickname'
-        %td.formNum= text_field_tag :nickname_form, @nickname_form
+        %td= f.label :nickname_form, '愛称'
+        %td.formText= text_field_tag :nickname_form, @nickname_form
       %tr
         %td  
         %td= hidden_field_tag :is_form, 1
@@ -71,21 +55,13 @@
     %tr
       %th= sort_link(@search, :result_no,'更新回', default_order: :desc)
       %th= sort_link(@search, :e_no,'キャラクター(Eno)', default_order: :desc)
-      %th= sort_link(@search, :result_no, 'Result no', default_order: :desc)
-      %th= sort_link(@search, :generate_no, 'Generate no', default_order: :desc)
-      %th= sort_link(@search, :e_no, 'E no', default_order: :desc)
-      %th= sort_link(@search, :name, 'Name', default_order: :desc)
-      %th= sort_link(@search, :nickname, 'Nickname', default_order: :desc)
+      %th= sort_link(@search, :nickname, '愛称', default_order: :desc)
       %th{colspan: "2"} 結果リンク
   %tbody
     - @names.each do |name|
       %tr
         %td= name.result_no
-        %td= pc_name_text(name.e_no, name.pc_name)
-        %td= name.result_no
-        %td= name.generate_no
-        %td= name.e_no
-        %td= name.name
+        %td= pc_name_text(name.e_no, name)
         %td= name.nickname
         %td= character_link(name.e_no)
         %td= character_old_link(@last_result, name.e_no, name.result_no, name.generate_no)

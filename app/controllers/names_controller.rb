@@ -5,8 +5,8 @@ class NamesController < ApplicationController
   # GET /names
   def index
     param_set
-    @count	= Name.notnil().includes(:pc_name).search(params[:q]).result.count()
-    @search	= Name.notnil().includes(:pc_name).page(params[:page]).search(params[:q])
+    @count	= Name.notnil().search(params[:q]).result.count()
+    @search	= Name.notnil().page(params[:page]).search(params[:q])
     @search.sorts = 'id asc' if @search.sorts.empty?
     @names	= @search.result.per(50)
   end
@@ -19,12 +19,11 @@ class NamesController < ApplicationController
         params["result_no_form"] ||= sprintf('%d',@last_result)
     end
     
-    reference_text_assign(params, "pc_name_name", "pc_name_form")
     reference_number_assign(params, "result_no", "result_no_form")
     reference_number_assign(params, "generate_no", "generate_no_form")
     reference_number_assign(params, "e_no", "e_no_form")
-    reference_number_assign(params, "name", "name_form")
-    reference_number_assign(params, "nickname", "nickname_form")
+    reference_text_assign(params, "name", "name_form")
+    reference_text_assign(params, "nickname", "nickname_form")
     
     @pc_name_form = params["pc_name_form"]
     @result_no_form = params["result_no_form"]
