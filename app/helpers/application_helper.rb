@@ -109,27 +109,22 @@ module ApplicationHelper
         end
 
         assembly_text = ""
-
         assembly.each do |parts|
           assembly_text += parts.orig_name_name.name + "、" if parts.orig_name_name
         end
-
         assembly_text.chop()
     end
 
-    def elemental_border(name)
-        if !name then 
+    def all_condition_text(conditions)
+        if !conditions then
             return
         end
 
-        border_style = ""
-        if name.name == "物理" then border_style = "0.2rem #ccc solid"
-        elsif name.name == "霊障" then border_style = "0.2rem #c4c solid"
-        elsif name.name == "粒子" then border_style = "0.2rem #4cc solid"
-        elsif name.name == "火炎" then border_style = "0.2rem #c44 solid"
-        elsif name.name == "電子" then border_style = "0.2rem #ee8 solid"
+        condition_text = ""
+        conditions.each do |condition|
+          condition_text += condition.condition.name + "、" if condition.condition
         end
-
-        "border-left: " + border_style;
+        condition_text.chop()
+        condition_text.delete("　")
     end
 end

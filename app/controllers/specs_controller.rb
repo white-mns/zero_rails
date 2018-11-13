@@ -5,8 +5,8 @@ class SpecsController < ApplicationController
   # GET /specs
   def index
     param_set
-    @count	= Spec.notnil().includes(:pc_name).search(params[:q]).result.count()
-    @search	= Spec.notnil().includes(:pc_name).page(params[:page]).search(params[:q])
+    @count	= Spec.notnil().includes(:pc_name, [regalia: :regalia], [condition: :condition]).search(params[:q]).result.count()
+    @search	= Spec.notnil().includes(:pc_name, [regalia: :regalia], [condition: :condition]).page(params[:page]).search(params[:q])
     @search.sorts = 'id asc' if @search.sorts.empty?
     @specs	= @search.result.per(50)
   end
@@ -30,6 +30,8 @@ class SpecsController < ApplicationController
     reference_number_assign(params, "intelligence", "intelligence_form")
     reference_number_assign(params, "drink", "drink_form")
     reference_number_assign(params, "illegality", "illegality_form")
+    reference_text_assign(params, "regalia_regalia_name", "regalia_form")
+    reference_text_assign(params, "condition_condition_name", "condition_form")
     
     @pc_name_form = params["pc_name_form"]
     @result_no_form = params["result_no_form"]
@@ -43,9 +45,12 @@ class SpecsController < ApplicationController
     @drink_form = params["drink_form"]
     @illegality_form = params["illegality_form"]
     
+    @regalia_form = params["regalia_form"]
+    @condition_form = params["condition_form"]
+    
     @show_detail_1 = (!params["is_form"]) ? "1" : params["show_detail_1"]
     @show_detail_2 = (!params["is_form"]) ? "1" : params["show_detail_2"]
-    @show_detail_3 = params["show_detail_3"]
+    @show_condition = params["show_condition"]
     @base_first    = (!params["is_form"]) ? "1" : "0"
   end
   # GET /specs/1

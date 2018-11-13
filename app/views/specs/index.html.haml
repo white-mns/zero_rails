@@ -61,6 +61,24 @@
         %td.formNum{colspan: "3"}= text_field_tag :illegality_form, @illegality_form
       %tr
         %td.indent
+        %td= f.label :illegality_form, 'レガリア'
+        %td.formText{colspan: "3"}= text_field_tag :regalia_form, @regalia_form
+    %tbody.tbody_toggle.pointer
+      %tr
+        %td{colspan: "5"}
+          = hidden_field_tag :show_condition, @show_condition
+          - act_icon(false)
+          = label_tag :show_condition, '　城状況を表示する', class: "act_desc"
+          = label_tag :show_condition, '　城状況を非表示にする', class: "act_desc closed"
+    %tbody.closed
+      %tr
+      %tr
+        %td
+        %td= f.label :condition_form, '城状況（ORのみ）'
+        %td.formText{colspan: "3"}= text_field_tag :condition_form, @condition_form
+    %tbody
+      %tr
+        %td.indent
         %td.indent= hidden_field_tag :is_form, 1
         %td{colspan: "3"}
           - search_submit_button
@@ -84,12 +102,13 @@
       %th= sort_link(@search, :intelligence, '知性', default_order: :desc)
       %th= sort_link(@search, :drink, '送品酔い', default_order: :desc)
       %th= sort_link(@search, :illegality, '違法性', default_order: :desc)
+      %th= sort_link(@search, :regalia, 'レガリア', default_order: :desc)
       %th{colspan: "2"} 結果リンク
   %tbody
     - @specs.each do |spec|
       %tr
-        %td= spec.result_no
-        %td= pc_name_text(spec.e_no, spec.pc_name)
+        %td{rowspan: "#{ '2' if @show_condition == "1" }" }= spec.result_no
+        %td{rowspan: "#{ '2' if @show_condition == "1" }" }= pc_name_text(spec.e_no, spec.pc_name)
         %td= spec.invation
         %td= spec.encount
         %td= spec.technic
@@ -97,6 +116,10 @@
         %td= spec.intelligence
         %td= spec.drink
         %td= spec.illegality
+        %td= spec.regalia.regalia.name if spec.regalia && spec.regalia.regalia
         %td= character_link(spec.e_no)
         %td= character_old_link(@last_result, spec.e_no, spec.result_no, spec.generate_no)
+      - if @show_condition == "1"
+        %tr
+          %td{colspan: 100}= all_condition_text(spec.condition)
 = paginate(@specs)
