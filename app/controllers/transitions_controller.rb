@@ -10,6 +10,19 @@ class TransitionsController < ApplicationController
     @search.sorts = 'id asc' if @search.sorts.empty?
     @transitions	= @search.result.per(50)
   end
+  
+  # GET /transition/graph
+  def graph
+    if !params["is_form"] then
+        params["block_no_form"] = "1"
+    end
+    param_set
+    @search	= Transition.notnil().includes(:p_name).page(params[:page]).search(params[:q])
+    @search.sorts = 'id asc' if @search.sorts.empty?
+    @library_param = {
+        interpolateNulls: true
+    }
+  end
 
   def param_set
     @last_result = Name.maximum('result_no')
