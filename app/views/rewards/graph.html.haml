@@ -1,0 +1,56 @@
+- @page_title = "精算グラフ"
+%h1= @page_title
+
+.card.desc
+  .card-body
+    = render "layouts/base_desc"
+    %p
+      %span.example_select.example_toggle.pointer
+        - help_icon
+        入力例
+        - act_desc(false)
+    #example.closed
+      = render "layouts/input_desc"
+= search_form_for @search, url: reward_graphs_path do |f|
+  %table.search_toggle.table.table-striped.table-bordered.table-hover
+    %tbody.pointer
+      %tr
+        %td{colspan: "5"}
+          - act_icon(true)
+          絞り込み検索
+          - act_desc(true)
+    %tbody
+      %tr
+      %tr
+        %td.indent
+        %td= f.label :result_no_form, '更新回'
+        %td.formNum{colspan: "3"}= text_field_tag :result_no_form, @result_no_form
+      %tr
+        %td.indent
+        %td= f.label :e_no_form, 'Eno'
+        %td.formNum= text_field_tag :e_no_form, @e_no_form
+        %td= f.label :p_name_form, 'キャラクター名'
+        %td.formText= text_field_tag :p_name_form, @p_name_form
+      %tr
+        %td.indent
+        %td= f.label :block_no_form, '今回ブロック番号'
+        %td.formNum= text_field_tag :block_no_form, @block_no_form
+        %td= f.label :block_no_form, '次回ブロック番号'
+        %td.formNum= text_field_tag :next_block_no_form, @next_block_no_form
+
+    %tbody
+      %tr
+        %td.indent
+        %td.indent= hidden_field_tag :is_form, 1
+        %td{colspan: "3"}
+          - search_submit_button
+
+
+%h3 合計現金収入
+= column_chart Reward.reward_graph_query("合計現金収入").search(params[:q]).result.to_range_variable_min_graph(:value), ytitle:"収入", colors:["#5af"], library: @library_param
+%h3 攻撃戦果収入
+= column_chart Reward.reward_graph_query("攻撃戦果").search(params[:q]).result.to_range_graph(:value), ytitle:"％", colors:["#5af"], library: @library_param
+%h3 支援戦果収入
+= column_chart Reward.reward_graph_query("支援戦果").search(params[:q]).result.to_range_graph(:value), ytitle:"％", colors:["#5af"], library: @library_param
+%h3 防衛戦果収入
+= column_chart Reward.reward_graph_query("防衛戦果").search(params[:q]).result.to_range_graph(:value), ytitle:"％", colors:["#5af"], library: @library_param

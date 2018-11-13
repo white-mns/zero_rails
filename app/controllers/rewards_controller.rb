@@ -11,6 +11,15 @@ class RewardsController < ApplicationController
     @rewards	= @search.result.per(50)
   end
 
+  # GET /reward/graph
+  def graph
+      index
+      @library_param =  {backgroundColor: "#222",
+            vAxis: { baselineColor: "#F76161", textStyle: { color: "#eee"}, titleTextStyle: {color: "#eee"} },
+            hAxis: { baselineColor: "#F76161", textStyle: { color: "#eee"}, titleTextStyle: {color: "#eee"} }}
+  end
+
+
   def param_set
     @last_result = Name.maximum('result_no')
 
@@ -30,7 +39,7 @@ class RewardsController < ApplicationController
     @result_no_form = params["result_no_form"]
     @generate_no_form = params["generate_no_form"]
     @e_no_form = params["e_no_form"]
-    @reword_type_form = params["reword_type_form"]
+    @reward_type_form = params["reward_type_form"]
     @value_form = params["value_form"]
   end
   # GET /rewards/1
