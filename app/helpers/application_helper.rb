@@ -15,7 +15,7 @@ module ApplicationHelper
             num += 1
             generate_text += "々"
         end
-        text = result_no + "回" + generate_text
+        text = sprintf("%d", result_no) + "回" + generate_text
         text
     end
 
