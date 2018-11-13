@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :intentions
   get "reward/graph", :to => "rewards#graph", :as => 'reward_graphs'
   resources :rewards
   resources :conditions
