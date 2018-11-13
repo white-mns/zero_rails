@@ -10,7 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_13_063425) do
+ActiveRecord::Schema.define(version: 2018_11_13_065726) do
+
+  create_table "assembly_nums", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "result_no"
+    t.integer "generate_no"
+    t.integer "e_no"
+    t.integer "division_type_id"
+    t.integer "proper_name_id"
+    t.integer "num"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["division_type_id"], name: "index_assembly_nums_on_division_type_id"
+    t.index ["e_no", "result_no", "generate_no"], name: "resultno_eno"
+    t.index ["num"], name: "index_assembly_nums_on_num"
+    t.index ["proper_name_id"], name: "index_assembly_nums_on_proper_name_id"
+  end
 
   create_table "blocks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "result_no"

@@ -11,7 +11,7 @@ class Block < ApplicationRecord
     attack_id  = ProperName.where(name: "攻撃戦果").maximum(:proper_id)
     support_id = ProperName.where(name: "支援戦果").maximum(:proper_id)
     defense_id = ProperName.where(name: "防衛戦果").maximum(:proper_id)
-    belongs_to :total,    -> { where(reward_type_id: total_id)},    :foreign_key => [:e_no, :result_no, :generate_no], :primary_key => [:e_no, :result_no, :generate_no], :class_name => 'Reward'
+    belongs_to :total,   -> { where(reward_type_id: total_id)},   :foreign_key => [:e_no, :result_no, :generate_no], :primary_key => [:e_no, :result_no, :generate_no], :class_name => 'Reward'
     belongs_to :attack,  -> { where(reward_type_id: attack_id)},  :foreign_key => [:e_no, :result_no, :generate_no], :primary_key => [:e_no, :result_no, :generate_no], :class_name => 'Reward'
     belongs_to :support, -> { where(reward_type_id: support_id)}, :foreign_key => [:e_no, :result_no, :generate_no], :primary_key => [:e_no, :result_no, :generate_no], :class_name => 'Reward'
     belongs_to :defense, -> { where(reward_type_id: defense_id)}, :foreign_key => [:e_no, :result_no, :generate_no], :primary_key => [:e_no, :result_no, :generate_no], :class_name => 'Reward'

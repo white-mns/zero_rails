@@ -1,0 +1,99 @@
+- @page_title = "アセンブル数一覧"
+%h1= @page_title
+
+.card.desc
+  .card-header
+    - act_icon(true)
+    検索仕様
+    - act_desc(true)
+  .card-body
+    = render "layouts/base_desc"
+    %p
+      %span.example_select.example_toggle.pointer
+        - help_icon
+        入力例
+        - act_desc(false)
+    #example.closed
+      = render "layouts/input_desc"
+= search_form_for @search do |f|
+  %table.search_toggle.table.table-striped.table-bordered.table-hover
+    %tbody.pointer
+      %tr
+        %td{colspan: "5"}
+          - act_icon(true)
+          絞り込み検索
+          - act_desc(true)
+    %tbody
+      %tr
+      %tr
+        %td.indent
+        %td= f.label :result_no_form, '更新回'
+        %td.formNum{colspan: "3"}= text_field_tag :result_no_form, @result_no_form
+      %tr
+        %td.indent
+        %td= f.label :e_no_form, 'Eno'
+        %td.formNum= text_field_tag :e_no_form, @e_no_form
+        %td= f.label :pc_name_form, 'キャラクター名'
+        %td.formText= text_field_tag :pc_name_form, @pc_name_form
+      %tr
+        %td  
+        %td= f.label :unit_form, 'ユニット名'
+        %td.formText= text_field_tag :unit_form, @unit_form
+        %td= f.label :num_form, 'アセンブル数'
+        %td.formNum= text_field_tag :num_form, @num_form
+      %tr
+        %td
+        %td= f.label :division_type_form, 'ユニット分類'
+        %td{:colspan => "3"}
+          = check_box_tag :is_division_0, @is_division_0, @is_division_0
+          = label_tag :is_division_0, 'ユニット分類（徳物理護衛……）で分類'
+          %br
+          = check_box_tag :is_division_1, @is_division_1, @is_division_1
+          = label_tag :is_division_1, 'ユニット名(ファイター、アーチャー)で分類'
+          %br
+          = check_box_tag :is_division_2, @is_division_2, @is_division_2
+          = label_tag :is_division_2, 'タイプ（徳、カルマ）で分類'
+          %br
+          = check_box_tag :is_division_3, @is_division_3, @is_division_3
+          = label_tag :is_division_3, '攻撃タイプ（護衛、罠、建築）で分類'
+          %br
+          = check_box_tag :is_division_4, @is_division_4, @is_division_4
+          = label_tag :is_division_4, '属性（物理、冷気……）で分類'
+      %tr
+        %td.indent
+        %td.indent= hidden_field_tag :is_form, 1
+        %td{colspan: "3"}
+          - search_submit_button
+
+
+= paginate(@assembly_nums)
+%br
+ヒット数：#{ @count }件
+%br
+%br
+
+%table.table.table-striped.table-bordered.table-hover
+  %thead
+    %tr
+      %th= sort_link(@search, :result_no,'更新回', default_order: :desc)
+      %th= sort_link(@search, :e_no,'キャラクター(Eno)', default_order: :desc)
+      %th= sort_link(@search, :division_type, '分類', default_order: :desc)
+      %th= sort_link(@search, :proper_name_id, 'ユニット名', default_order: :desc)
+      %th= sort_link(@search, :num, '数', default_order: :desc)
+      %th{colspan: "2"} 結果リンク
+  %tbody
+    - @assembly_nums.each do |assembly_num|
+      %tr
+        %td= assembly_num.result_no
+        %td= pc_name_text(assembly_num.e_no, assembly_num.pc_name)
+        %td
+          = "分類" if assembly_num.division_type_id == 0
+          = "名前" if assembly_num.division_type_id == 1
+          = "タイプ" if assembly_num.division_type_id == 2
+          = "攻撃" if assembly_num.division_type_id == 3
+          = "属性" if assembly_num.division_type_id == 4
+        %td= assembly_num.unit.name if assembly_num.unit
+        %td= assembly_num.num
+        %td= character_link(assembly_num.e_no)
+        %td= character_old_link(@last_result, assembly_num.e_no, assembly_num.result_no, assembly_num.generate_no)
+= paginate(@assembly_nums)
