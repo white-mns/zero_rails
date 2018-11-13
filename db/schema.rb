@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_13_065726) do
+ActiveRecord::Schema.define(version: 2018_11_13_082036) do
 
   create_table "assembly_nums", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "result_no"
@@ -264,6 +264,22 @@ ActiveRecord::Schema.define(version: 2018_11_13_065726) do
     t.index ["funds"], name: "index_statuses_on_funds"
     t.index ["ranking_rate"], name: "index_statuses_on_ranking_rate"
     t.index ["rp"], name: "index_statuses_on_rp"
+  end
+
+  create_table "transitions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "result_no"
+    t.integer "generate_no"
+    t.integer "block_no"
+    t.integer "e_no"
+    t.integer "turn"
+    t.integer "act"
+    t.integer "data_type"
+    t.float "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["data_type"], name: "index_transitions_on_data_type"
+    t.index ["e_no", "act", "turn", "block_no", "result_no", "generate_no"], name: "act_eno"
+    t.index ["value"], name: "index_transitions_on_value"
   end
 
 end

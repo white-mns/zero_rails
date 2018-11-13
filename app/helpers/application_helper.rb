@@ -50,7 +50,7 @@ module ApplicationHelper
         if result_no != last_result_no then return end
 
         file_name = sprintf("%d", block_no - 1)
-        act_no = (act == 1) ? "" : sprintf("%d", act - 1)
+        act_no = sprintf("%d", act - 1)
         id = "act" + act_no + "-eno" + sprintf("%d", e_no)
         link_to " 戦闘機動", "http://blacktea.sakura.ne.jp/teaconvini/RESULT/battle"+file_name+".html#"+id, :target => "_blank"
     end

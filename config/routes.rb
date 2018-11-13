@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :transitions
   get "mega_assembles", :to => "assembly_nums#mega_assemble", :as => 'mega_assembles'
   resources :assembly_nums
   resources :next_battles
