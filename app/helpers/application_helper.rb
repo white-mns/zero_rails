@@ -110,7 +110,7 @@ module ApplicationHelper
 
         assembly_text = ""
         assembly.each do |parts|
-          assembly_text += parts.orig_name_name.name + "、" if parts.orig_name_name
+          assembly_text += parts.orig.name + "、" if parts.orig
         end
         assembly_text.chop()
     end

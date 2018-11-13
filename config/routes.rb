@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :blocks
   resources :partnerships
   resources :intentions
   get "reward/graph", :to => "rewards#graph", :as => 'reward_graphs'

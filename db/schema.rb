@@ -10,7 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_13_034302) do
+ActiveRecord::Schema.define(version: 2018_11_13_041654) do
+
+  create_table "blocks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "result_no"
+    t.integer "generate_no"
+    t.integer "block_no"
+    t.integer "e_no"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["block_no"], name: "index_blocks_on_block_no"
+    t.index ["e_no", "result_no", "generate_no"], name: "resultno_eno"
+  end
 
   create_table "conditions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "result_no"
