@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_13_041654) do
+ActiveRecord::Schema.define(version: 2018_11_13_063425) do
 
   create_table "blocks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "result_no"
@@ -146,6 +146,17 @@ ActiveRecord::Schema.define(version: 2018_11_13_041654) do
     t.index ["e_no", "result_no", "generate_no"], name: "unique_eno"
     t.index ["name"], name: "index_names_on_name"
     t.index ["nickname"], name: "index_names_on_nickname"
+  end
+
+  create_table "next_battles", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "result_no"
+    t.integer "generate_no"
+    t.integer "block_no"
+    t.integer "e_no"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["block_no"], name: "index_next_battles_on_block_no"
+    t.index ["e_no", "result_no", "generate_no"], name: "resultno_eno"
   end
 
   create_table "partnerships", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

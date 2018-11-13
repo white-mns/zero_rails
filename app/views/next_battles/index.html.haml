@@ -1,4 +1,4 @@
-- @page_title = "戦場別戦果一覧"
+- @page_title = "次回組み合わせ一覧"
 %h1= @page_title
 
 .card.desc
@@ -191,7 +191,7 @@
           - search_submit_button
 
 
-= paginate(@blocks)
+= paginate(@next_battles)
 %br
 ヒット数：#{ @count }件
 %br
@@ -229,41 +229,41 @@
         %th.sep{style: "min-width:25rem"}= sort_link(@search, :condition_all_text_condition_text, '城状況', default_order: :desc)
       %th.sep{colspan: "2"} 結果リンク
   %tbody
-    - @blocks.each do |block|
+    - @next_battles.each do |next_battle|
       %tr
-        %td{rowspan: "#{ '2' if @show_all_assembly }" }= block.result_no
-        %td{rowspan: "#{ '2' if @show_all_assembly }" }= pc_name_text(block.e_no, block.pc_name)
-        %td.sep{rowspan: "#{ '2' if @show_all_assembly }" }= block.block_no
+        %td{rowspan: "#{ '2' if @show_all_assembly }" }= next_battle.result_no
+        %td{rowspan: "#{ '2' if @show_all_assembly }" }= pc_name_text(next_battle.e_no, next_battle.pc_name)
+        %td.sep{rowspan: "#{ '2' if @show_all_assembly }" }= next_battle.block_no
         - if @show_detail_status_1 == "1"
-          %td.sep= block.status.ranking_rate if block.status
-          %td= block.status.rp if block.status
+          %td.sep= next_battle.status.ranking_rate if next_battle.status
+          %td= next_battle.status.rp if next_battle.status
         - if @show_detail_reward_1 == "1"
-          %td.sep= block.total.value.round() if block.total
-          %td= block.attack.value if block.attack
-          %td= block.support.value if block.support
-          %td= block.defense.value if block.defense
+          %td.sep= next_battle.total.value.round() if next_battle.total
+          %td= next_battle.attack.value if next_battle.attack
+          %td= next_battle.support.value if next_battle.support
+          %td= next_battle.defense.value if next_battle.defense
         - if @show_detail_regalia_1 == "1"
-          %td.sep= block.regalia.regalia.name if block.regalia && block.regalia.regalia
+          %td.sep= next_battle.regalia.regalia.name if next_battle.regalia && next_battle.regalia.regalia
         - if @show_detail_intention_1 == "1"
-          %td.sep= block.intention.intention.name if block.intention && block.intention.intention
+          %td.sep= next_battle.intention.intention.name if next_battle.intention && next_battle.intention.intention
         - if @show_detail_partnership_1 == "1"
           - if @show_partnership_name == "on"
-            %td.sep= pc_name_text(block.partnership.partner_e_no, block.partnership.partnership) if block.partnership && block.partnership.partnership
+            %td.sep= pc_name_text(next_battle.partnership.partner_e_no, next_battle.partnership.partnership) if next_battle.partnership && next_battle.partnership.partnership
           - else
-            %td.sep= block.partnership.partner_e_no if block.partnership
+            %td.sep= next_battle.partnership.partner_e_no if next_battle.partnership
         - if @show_detail_spec_1 == "1"
-          %td= block.spec.invation     if block.spec
-          %td= block.spec.encount      if block.spec
-          %td= block.spec.technic      if block.spec
-          %td= block.spec.goodwill     if block.spec
-          %td= block.spec.intelligence if block.spec
-          %td= block.spec.drink        if block.spec
-          %td= block.spec.illegality   if block.spec
+          %td= next_battle.spec.invation     if next_battle.spec
+          %td= next_battle.spec.encount      if next_battle.spec
+          %td= next_battle.spec.technic      if next_battle.spec
+          %td= next_battle.spec.goodwill     if next_battle.spec
+          %td= next_battle.spec.intelligence if next_battle.spec
+          %td= next_battle.spec.drink        if next_battle.spec
+          %td= next_battle.spec.illegality   if next_battle.spec
         - if @show_detail_condition_1 == "1"
-          %td.sep= all_condition_text(block.spec.condition)
-        %td.sep= character_link(block.e_no)
-        %td= character_old_link(@last_result, block.e_no, block.result_no, block.generate_no)
+          %td.sep= all_condition_text(next_battle.spec.condition) if next_battle.spec
+        %td.sep= character_link(next_battle.e_no)
+        %td= character_old_link(@last_result, next_battle.e_no, next_battle.result_no, next_battle.generate_no)
       -if @show_all_assembly
         %tr
-          %td{colspan: 100}= all_assembly_text(block.assembly)
-= paginate(@blocks)
+          %td{colspan: 100}= all_assembly_text(next_battle.assembly)
+= paginate(@next_battles)
