@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_13_001659) do
+ActiveRecord::Schema.define(version: 2018_11_13_012452) do
 
   create_table "conditions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "result_no"
@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(version: 2018_11_13_001659) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["condition_id"], name: "index_conditions_on_condition_id"
-    t.index ["e_no", "result_no", "generate_no"], name: "unique_eno"
+    t.index ["e_no", "result_no", "generate_no"], name: "resultno_eno"
   end
 
   create_table "items", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -144,6 +144,19 @@ ActiveRecord::Schema.define(version: 2018_11_13_001659) do
     t.datetime "updated_at", null: false
     t.index ["e_no", "result_no", "generate_no"], name: "unique_eno"
     t.index ["regalia_id"], name: "index_regalia_on_regalia_id"
+  end
+
+  create_table "rewards", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "result_no"
+    t.integer "generate_no"
+    t.integer "e_no"
+    t.integer "reward_type_id"
+    t.float "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["e_no", "result_no", "generate_no"], name: "resultno_eno"
+    t.index ["reward_type_id"], name: "index_rewards_on_reward_type_id"
+    t.index ["value"], name: "index_rewards_on_value"
   end
 
   create_table "specs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
