@@ -1,0 +1,269 @@
+- @page_title = "戦場別戦果一覧"
+%h1= @page_title
+
+.card.desc
+  .card-header
+    - act_icon(true)
+    検索仕様
+    - act_desc(true)
+  .card-body
+    = render "layouts/base_desc"
+    %p
+      %span.example_select.example_toggle.pointer
+        - help_icon
+        入力例
+        - act_desc(false)
+    #example.closed
+      = render "layouts/input_desc"
+= search_form_for @search do |f|
+  %table.search_toggle.table.table-striped.table-bordered.table-hover
+    %tbody.pointer
+      %tr
+        %td{colspan: "5"}
+          - act_icon(true)
+          絞り込み検索
+          - act_desc(true)
+    %tbody
+      %tr
+      %tr
+        %td.indent
+        %td= f.label :result_no_form, '更新回'
+        %td.formNum{colspan: "3"}= text_field_tag :result_no_form, @result_no_form
+      %tr
+        %td.indent
+        %td= f.label :e_no_form, 'Eno'
+        %td.formNum= text_field_tag :e_no_form, @e_no_form
+        %td= f.label :pc_name_form, 'キャラクター名'
+        %td.formText= text_field_tag :pc_name_form, @pc_name_form
+    %tbody.tbody_toggle.pointer
+      %tr
+        %td{colspan: "5"}
+          = hidden_field_tag :show_detail_status_1, @show_detail_status_1
+          - act_icon(false)
+          = label_tag :show_detail_status_1, '　ステータスを表示する', class: "act_desc"
+          = label_tag :show_detail_status_1, '　ステータスを非表示にする', class: "act_desc closed"
+          %div.act_desc 　ランキングレート、RP
+    %tbody.closed
+      %tr
+        %td.indent
+        %td= f.label :ranking_rate_form, 'ランキングレート'
+        %td.formNum= text_field_tag :ranking_rate_form, @ranking_rate_form
+        %td= f.label :rp_form, 'RP'
+        %td.formNum= text_field_tag :rp_form, @rp_form
+    %tbody.tbody_toggle.pointer
+      %tr
+        %td{colspan: "5"}
+          = hidden_field_tag :base_first, @base_first
+          = hidden_field_tag :show_detail_reward_1, @show_detail_reward_1
+          - act_icon(false)
+          = label_tag :show_detail_reward_1, '　戦闘報酬を表示する', class: "act_desc"
+          = label_tag :show_detail_reward_1, '　戦闘報酬を非表示にする', class: "act_desc closed"
+          %div.act_desc 　合計現金収入、攻撃戦果補正、支援戦果補正、防衛戦果補正
+    %tbody
+      %tr
+        %td.indent
+        %td= f.label :total_income_form, '合計現金収入'
+        %td.formNum{colspan: "3"}= text_field_tag :total_income_form, @total_income_form
+      %tr
+        %td.indent
+        %td= f.label :attack_form, '攻撃戦果補正'
+        %td.formNum= text_field_tag :attack_form, @attack_form
+        %td= f.label :support_form, '支援戦果補正'
+        %td.formNum= text_field_tag :support_form, @support_form
+      %tr
+        %td.indent
+        %td= f.label :defense_form, '防衛戦果補正'
+        %td.formNum{colspan: "3"}= text_field_tag :defense_form, @defense_form
+    %tbody.tbody_toggle.pointer
+      %tr
+        %td{colspan: "5"}
+          = hidden_field_tag :show_detail_assembly_1, @show_detail_assembly_1
+          - act_icon(false)
+          = label_tag :show_detail_assembly_1, '　アセンブルを表示する', class: "act_desc"
+          = label_tag :show_detail_assembly_1, '　アセンブルを非表示にする', class: "act_desc closed"
+          %div.act_desc 　全アセンブル
+    %tbody.closed
+      %tr
+        %td.indent
+        %td= f.label :assembly_form, '全アセンブル (ORのみ)'
+        %td.formText{colspan: "3"}= text_field_tag :assembly_form, @assembly_form
+      %tr
+        %td.indent
+        %td{:colspan => "4"}
+          = check_box_tag :show_all_assembly, @show_all_assembly, @show_all_assembly
+          = label_tag :show_all_assembly, '全アセンブルを表示する'
+    %tbody.tbody_toggle.pointer
+      %tr
+        %td{colspan: "5"}
+          = hidden_field_tag :base_first, @base_first
+          = hidden_field_tag :show_detail_regalia_1, @show_detail_regalia_1
+          - act_icon(false)
+          = label_tag :show_detail_regalia_1, '　レガリアを表示する', class: "act_desc"
+          = label_tag :show_detail_regalia_1, '　レガリアを非表示にする', class: "act_desc closed"
+    %tbody
+      %tr
+        %td.indent
+        %td= f.label :regalia_form, 'レガリア'
+        %td.formText{:colspan => "3"}= text_field_tag :regalia_form, @regalia_form
+    %tbody.tbody_toggle.pointer
+      %tr
+        %td{colspan: "5"}
+          = hidden_field_tag :base_first, @base_first
+          = hidden_field_tag :show_detail_intention_1, @show_detail_intention_1
+          - act_icon(false)
+          = label_tag :show_detail_intention_1, '　意思表示を表示する', class: "act_desc"
+          = label_tag :show_detail_intention_1, '　意思表示を非表示にする', class: "act_desc closed"
+    %tbody
+      %tr
+        %td.indent
+        %td= f.label :intention_form, '意思表示'
+        %td.formText{:colspan => "3"}= text_field_tag :intention_form, @intention_form
+    %tbody.tbody_toggle.pointer
+      %tr
+        %td{colspan: "5"}
+          = hidden_field_tag :show_detail_partnership_1, @show_detail_partnership_1
+          - act_icon(false)
+          = label_tag :show_detail_partnership_1, '　姉妹提携を表示する', class: "act_desc"
+          = label_tag :show_detail_partnership_1, '　姉妹提携を非表示にする', class: "act_desc closed"
+    %tbody.closed
+      %tr
+        %td.indent
+        %td= f.label :partnership_form, '姉妹提携Eno'
+        %td.formNum= text_field_tag :partnership_form, @partnership_form
+        %td= f.label :partnership_form, '姉妹提携キャラクター名'
+        %td.formText= text_field_tag :partnership_name_form, @partnership_name_form
+      %tr
+        %td.indent
+        %td{:colspan => "4"}
+          = check_box_tag :show_partnership_name, @show_partnership_name, @show_partnership_name
+          = label_tag :show_partnership_name, '姉妹提携キャラ名を表示する'
+    %tbody.tbody_toggle.pointer
+      %tr
+        %td{colspan: "5"}
+          = hidden_field_tag :show_detail_spec_1, @show_detail_spec_1
+          - act_icon(false)
+          = label_tag :show_detail_spec_1, '　城塞データを表示する', class: "act_desc"
+          = label_tag :show_detail_spec_1, '　城塞データを非表示にする', class: "act_desc closed"
+          %div.act_desc 　侵攻速度、エンカウント、機巧技術、好感度、知性、送品酔い、違法性、レガリア
+    %tbody.closed
+      %tr
+        %td.indent
+        %td= f.label :invation_form, '侵攻速度'
+        %td.formNum= text_field_tag :invation_form, @invation_form
+        %td= f.label :encount_form, 'エンカウント'
+        %td.formNum= text_field_tag :encount_form, @encount_form
+      %tr
+        %td.indent
+        %td= f.label :technic_form, '機巧技術'
+        %td.formNum= text_field_tag :technic_form, @technic_form
+        %td= f.label :goodwill_form, '好感度'
+        %td.formNum= text_field_tag :goodwill_form, @goodwill_form
+      %tr
+        %td.indent
+        %td= f.label :intelligence_form, '知性'
+        %td.formNum{colspan: "3"}= text_field_tag :intelligence_form, @intelligence_form
+      %tr
+        %td.indent
+        %td= f.label :drink_form, '送品酔い'
+        %td.formNum{colspan: "3"}= text_field_tag :drink_form, @drink_form
+      %tr
+        %td.indent
+        %td= f.label :illegality_form, '違法性'
+        %td.formNum{colspan: "3"}= text_field_tag :illegality_form, @illegality_form
+    %tbody.tbody_toggle.pointer
+      %tr
+        %td{colspan: "5"}
+          = hidden_field_tag :show_detail_condition_1, @show_detail_condition_1
+          - act_icon(false)
+          = label_tag :show_detail_condition_1, '　城状況を表示する', class: "act_desc"
+          = label_tag :show_detail_condition_1, '　城状況を非表示にする', class: "act_desc closed"
+    %tbody.closed
+      %tr
+      %tr
+        %td.indent
+        %td= f.label :condition_text_form, '城状況'
+        %td.formText{colspan: "3"}= text_field_tag :condition_text_form, @condition_text_form
+    %tbody
+      %tr
+        %td.indent
+        %td.indent= hidden_field_tag :is_form, 1
+        %td{colspan: "3"}
+          - search_submit_button
+
+
+= paginate(@blocks)
+%br
+ヒット数：#{ @count }件
+%br
+%br
+
+%table.table.table-striped.table-bordered.table-hover
+  %thead
+    %tr
+      %th= sort_link(@search, :result_no,'更新回', default_order: :desc)
+      %th= sort_link(@search, :e_no,'キャラクター(Eno)', default_order: :desc)
+      %th.sep= sort_link(@search, :block_no, 'ブロック', default_order: :desc)
+      - if @show_detail_status_1 == "1"
+        %th.sep= sort_link(@search, :status_ranking_rate, 'レート', default_order: :desc)
+        %th= sort_link(@search, :status_rp, 'RP', default_order: :desc)
+      - if @show_detail_reward_1 == "1"
+        %th.sep= sort_link(@search, :total_value, '合計収入', default_order: :desc)
+        %th= sort_link(@search, :attack_value, '攻撃', default_order: :desc)
+        %th= sort_link(@search, :support_value, '支援', default_order: :desc)
+        %th= sort_link(@search, :defense_value, '防衛', default_order: :desc)
+      - if @show_detail_regalia_1 == "1"
+        %th.sep= sort_link(@search, :regalia_regalia_name, 'レガリア', default_order: :desc)
+      - if @show_detail_intention_1 == "1"
+        %th.sep= sort_link(@search, :intention_intention_name, '意思', default_order: :desc)
+      - if @show_detail_partnership_1 == "1"
+        %th.sep= sort_link(@search, :partnership_partner_e_no, '姉妹提携', default_order: :desc)
+      - if @show_detail_spec_1 == "1"
+        %th.sep= sort_link(@search, :spec_invation, '侵攻速度', default_order: :desc)
+        %th= sort_link(@search, :spec_encount, 'エンカウント', default_order: :desc)
+        %th= sort_link(@search, :spec_technic, '機巧技術', default_order: :desc)
+        %th= sort_link(@search, :spec_goodwill, '好感度', default_order: :desc)
+        %th= sort_link(@search, :spec_intelligence, '知性', default_order: :desc)
+        %th= sort_link(@search, :spec_drink, '送品酔い', default_order: :desc)
+        %th= sort_link(@search, :spec_illegality, '違法性', default_order: :desc)
+      - if @show_detail_condition_1 == "1"
+        %th.sep{style: "min-width:25rem"}= sort_link(@search, :condition_all_text_condition_text, '城状況', default_order: :desc)
+      %th.sep{colspan: "2"} 結果リンク
+  %tbody
+    - @blocks.each do |block|
+      %tr
+        %td{rowspan: "#{ '2' if @show_all_assembly }" }= block.result_no
+        %td{rowspan: "#{ '2' if @show_all_assembly }" }= pc_name_text(block.e_no, block.pc_name)
+        %td.sep{rowspan: "#{ '2' if @show_all_assembly }" }= block.block_no
+        - if @show_detail_status_1 == "1"
+          %td.sep= block.status.ranking_rate if block.status
+          %td= block.status.rp if block.status
+        - if @show_detail_reward_1 == "1"
+          %td.sep= block.total.value.round() if block.total
+          %td= block.attack.value if block.attack
+          %td= block.support.value if block.support
+          %td= block.defense.value if block.defense
+        - if @show_detail_regalia_1 == "1"
+          %td.sep= block.regalia.regalia.name if block.regalia && block.regalia.regalia
+        - if @show_detail_intention_1 == "1"
+          %td.sep= block.intention.intention.name if block.intention && block.intention.intention
+        - if @show_detail_partnership_1 == "1"
+          - if @show_partnership_name == "on"
+            %td.sep= pc_name_text(block.partnership.partner_e_no, block.partnership.partnership) if block.partnership && block.partnership.partnership
+          - else
+            %td.sep= block.partnership.partner_e_no if block.partnership
+        - if @show_detail_spec_1 == "1"
+          %td= block.spec.invation     if block.spec
+          %td= block.spec.encount      if block.spec
+          %td= block.spec.technic      if block.spec
+          %td= block.spec.goodwill     if block.spec
+          %td= block.spec.intelligence if block.spec
+          %td= block.spec.drink        if block.spec
+          %td= block.spec.illegality   if block.spec
+        - if @show_detail_condition_1 == "1"
+          %td.sep= all_condition_text(block.spec.condition)
+        %td.sep= character_link(block.e_no)
+        %td= character_old_link(@last_result, block.e_no, block.result_no, block.generate_no)
+      -if @show_all_assembly
+        %tr
+          %td{colspan: 100}= all_assembly_text(block.assembly)
+= paginate(@blocks)

@@ -1,0 +1,57 @@
+- @page_title = "戦果推移グラフ"
+%h1= @page_title
+
+.card.desc
+  .card-body
+    = render "layouts/base_desc"
+    %p
+      %span.example_select.example_toggle.pointer
+        - help_icon
+        入力例
+        - act_desc(false)
+    #example.closed
+      = render "layouts/input_desc"
+= search_form_for @search, url: transition_graphs_path do |f|
+  %table.search_toggle.table.table-striped.table-bordered.table-hover
+    %tbody.pointer
+      %tr
+        %td{colspan: "5"}
+          - act_icon(true)
+          絞り込み検索
+          - act_desc(true)
+    %tbody
+      %tr
+      %tr
+        %td  
+        %td= f.label :result_no_form, '更新回'
+        %td.formNum{colspan: "3"}= text_field_tag :result_no_form, @result_no_form
+      %tr
+        %td  
+        %td= f.label :e_no_form, 'Eno'
+        %td.formNum{colspan: "3"}= text_field_tag :e_no_form, @e_no_form
+      %tr
+        %td
+        %td= f.label :pc_name_form, 'キャラクター名'
+        %td.formText= text_field_tag :pc_name_form, @pc_name_form
+        %td= f.label :nickname_form, '愛称'
+        %td.formText= text_field_tag :nickname_form, @nickname_form
+
+      %tr
+        %td  
+        %td= f.label :block_no_form, 'ブロック番号'
+        %td.formNum{colspan: "3"}= text_field_tag :block_no_form, @block_no_form
+      %tr
+        %td  
+        %td= hidden_field_tag :is_form, 1
+        %td{colspan: "3"}
+          - search_submit_button
+
+%h3 攻撃戦果
+= line_chart Transition.data_type(1).search_result(params).to_transition_graph(params), xtitle:"ターン", ytitle:"％", height: "600px", library: @library_param
+%br
+%h3 支援戦果
+= line_chart Transition.data_type(2).search_result(params).to_transition_graph(params), xtitle:"ターン", ytitle:"％", height: "600px", library: @library_param
+%br
+%h3 防衛戦果
+= line_chart Transition.data_type(3).search_result(params).to_transition_graph(params), xtitle:"ターン", ytitle:"％", height: "600px", library: @library_param
+%br

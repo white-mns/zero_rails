@@ -5,6 +5,7 @@
     = csrf_meta_tags
     = csp_meta_tag
 
+    %meta{name: "viewport", content:"width=device-width, initial-scale=1"}
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
     = javascript_include_tag "https://www.gstatic.com/charts/loader.js"
@@ -22,24 +23,38 @@
                 個人データ
                 %span.caret
               .dropdown-menu
+                = link_to "アイテム一覧", items_path, class: "dropdown-item"
+                = link_to "ステータス一覧", statuses_path, class: "dropdown-item"
+                = link_to "城塞データ一覧", specs_path, class: "dropdown-item"
                 .dropdown-divider
+                = link_to "精算一覧", rewards_path, class: "dropdown-item"
+                = link_to "精算グラフ", reward_graphs_path, class: "dropdown-item"
+                .dropdown-divider
+                = link_to "メガアセンブル一覧", mega_assembles_path, class: "dropdown-item"
             %li.nav-item.dropdown
               %a.nav-link.dropdown-toggle#themes{ :data => {:toggle =>"dropdown"}, :href => "#"}
                 結果データ
                 %span.caret
               .dropdown-menu
+                = link_to "マーケット一覧", markets_path, class: "dropdown-item"
                 .dropdown-divider
+                = link_to "戦場別戦果一覧", blocks_path, class: "dropdown-item"
+                = link_to "次回組み合わせ一覧", next_battles_path, class: "dropdown-item"
+                .dropdown-divider
+                = link_to "戦果推移一覧", transitions_path, class: "dropdown-item"
+                = link_to "戦果推移グラフ", transition_graphs_path, class: "dropdown-item"
 
     .container
-      .row
-        .col-md-12
-          = yield
+      .bs-docs-section.clearfix
+        .row
+          .col-md-12
+            = yield
       
-      %footer
-        %p
-          制作#{link_to "@white_mns", "http://twitter.com/white_mns"}
-          %br
-          = link_to "プライバシーポリシー", top_page_privacy_path
-          %br
-          ソースコード [#{link_to "解析部分", "https://github.com/white-mns/zero_parse"}] [#{link_to "表示部分", "https://github.com/white-mns/zero_rails"}]
-      = render 'layouts/analytics'
+        %footer
+          %p
+            制作#{link_to "@white_mns", "http://twitter.com/white_mns"}
+            %br
+            = link_to "プライバシーポリシー", top_page_privacy_path
+            %br
+            ソースコード [#{link_to "解析部分", "https://github.com/white-mns/zero_parse"}] [#{link_to "表示部分", "https://github.com/white-mns/zero_rails"}]
+        = render 'layouts/analytics'

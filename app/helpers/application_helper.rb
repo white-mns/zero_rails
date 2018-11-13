@@ -15,14 +15,14 @@ module ApplicationHelper
             num += 1
             generate_text += "々"
         end
-        text = result_no + "回" + generate_text
+        text = sprintf("%d", result_no) + "回" + generate_text
         text
     end
 
-    def p_name_text(e_no, p_name)
+    def pc_name_text(e_no, pc_name)
         e_no_text = "(" + sprintf("%d",e_no) + ")"
-        if p_name then
-            p_name.name.html_safe + e_no_text
+        if pc_name then
+            pc_name.name.html_safe + e_no_text
         else
             e_no_text
         end
@@ -32,7 +32,7 @@ module ApplicationHelper
         if e_no <= 0 then return end
 
         file_name = sprintf("%04d",e_no)
-        link_to " 結果", "http://blacktea.sakura.ne.jp/teaconvini/c"+file_name+".html", :target => "_blank"
+        link_to " 結果", "http://blacktea.sakura.ne.jp/teaconvini/RESULT/c"+file_name+".html", :target => "_blank"
     end
     
     def character_old_link(last_result_no, e_no, result_no, generate_no)
@@ -50,7 +50,7 @@ module ApplicationHelper
         if result_no != last_result_no then return end
 
         file_name = sprintf("%d", block_no - 1)
-        act_no = (act == 1) ? "" : sprintf("%d", act - 1)
+        act_no = sprintf("%d", act - 1)
         id = "act" + act_no + "-eno" + sprintf("%d", e_no)
         link_to " 戦闘機動", "http://blacktea.sakura.ne.jp/teaconvini/RESULT/battle"+file_name+".html#"+id, :target => "_blank"
     end
@@ -109,27 +109,22 @@ module ApplicationHelper
         end
 
         assembly_text = ""
-
         assembly.each do |parts|
-          assembly_text += parts.orig_name_name.name + "、" if parts.orig_name_name
+          assembly_text += parts.orig.name + "、" if parts.orig
         end
-
         assembly_text.chop()
     end
 
-    def elemental_border(name)
-        if !name then 
+    def all_condition_text(conditions)
+        if !conditions then
             return
         end
 
-        border_style = ""
-        if name.name == "物理" then border_style = "0.2rem #ccc solid"
-        elsif name.name == "霊障" then border_style = "0.2rem #c4c solid"
-        elsif name.name == "粒子" then border_style = "0.2rem #4cc solid"
-        elsif name.name == "火炎" then border_style = "0.2rem #c44 solid"
-        elsif name.name == "電子" then border_style = "0.2rem #ee8 solid"
+        condition_text = ""
+        conditions.each do |condition|
+          condition_text += condition.condition.name + "、" if condition.condition
         end
-
-        "border-left: " + border_style;
+        condition_text.chop()
+        condition_text.delete("　")
     end
 end

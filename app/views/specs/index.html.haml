@@ -1,0 +1,125 @@
+- @page_title = "城塞データ一覧"
+%h1= @page_title
+
+.card.desc
+  .card-header
+    - act_icon(true)
+    検索仕様
+    - act_desc(true)
+  .card-body
+    = render "layouts/base_desc"
+    %p
+      %span.example_select.example_toggle.pointer
+        - help_icon
+        入力例
+        - act_desc(false)
+    #example.closed
+      = render "layouts/input_desc"
+= search_form_for @search do |f|
+  %table.search_toggle.table.table-striped.table-bordered.table-hover
+    %tbody.pointer
+      %tr
+        %td{colspan: "5"}
+          - act_icon(true)
+          絞り込み検索
+          - act_desc(true)
+    %tbody
+      %tr
+      %tr
+        %td.indent
+        %td= f.label :result_no_form, '更新回'
+        %td.formNum{colspan: "3"}= text_field_tag :result_no_form, @result_no_form
+      %tr
+        %td.indent
+        %td= f.label :e_no_form, 'Eno'
+        %td.formNum= text_field_tag :e_no_form, @e_no_form
+        %td= f.label :pc_name_form, 'キャラクター名'
+        %td.formText= text_field_tag :pc_name_form, @pc_name_form
+      %tr
+        %td.indent
+        %td= f.label :invation_form, '侵攻速度'
+        %td.formNum= text_field_tag :invation_form, @invation_form
+        %td= f.label :encount_form, 'エンカウント'
+        %td.formNum= text_field_tag :encount_form, @encount_form
+      %tr
+        %td.indent
+        %td= f.label :technic_form, '機巧技術'
+        %td.formNum= text_field_tag :technic_form, @technic_form
+        %td= f.label :goodwill_form, '好感度'
+        %td.formNum= text_field_tag :goodwill_form, @goodwill_form
+      %tr
+        %td.indent
+        %td= f.label :intelligence_form, '知性'
+        %td.formNum{colspan: "3"}= text_field_tag :intelligence_form, @intelligence_form
+      %tr
+        %td.indent
+        %td= f.label :drink_form, '送品酔い'
+        %td.formNum{colspan: "3"}= text_field_tag :drink_form, @drink_form
+      %tr
+        %td.indent
+        %td= f.label :illegality_form, '違法性'
+        %td.formNum{colspan: "3"}= text_field_tag :illegality_form, @illegality_form
+      %tr
+        %td.indent
+        %td= f.label :illegality_form, 'レガリア'
+        %td.formText{colspan: "3"}= text_field_tag :regalia_form, @regalia_form
+    %tbody.tbody_toggle.pointer
+      %tr
+        %td{colspan: "5"}
+          = hidden_field_tag :show_condition, @show_condition
+          - act_icon(false)
+          = label_tag :show_condition, '　城状況を表示する', class: "act_desc"
+          = label_tag :show_condition, '　城状況を非表示にする', class: "act_desc closed"
+    %tbody.closed
+      %tr
+      %tr
+        %td
+        %td= f.label :condition_form, '城状況（ORのみ）'
+        %td.formText{colspan: "3"}= text_field_tag :condition_form, @condition_form
+    %tbody
+      %tr
+        %td.indent
+        %td.indent= hidden_field_tag :is_form, 1
+        %td{colspan: "3"}
+          - search_submit_button
+
+
+= paginate(@specs)
+%br
+ヒット数：#{ @count }件
+%br
+%br
+
+%table.table.table-striped.table-bordered.table-hover
+  %thead
+    %tr
+      %th= sort_link(@search, :result_no,'更新回', default_order: :desc)
+      %th= sort_link(@search, :e_no,'キャラクター(Eno)', default_order: :desc)
+      %th= sort_link(@search, :invation, '侵攻速度', default_order: :desc)
+      %th= sort_link(@search, :encount, 'エンカウント', default_order: :desc)
+      %th= sort_link(@search, :technic, '機巧技術', default_order: :desc)
+      %th= sort_link(@search, :goodwill, '好感度', default_order: :desc)
+      %th= sort_link(@search, :intelligence, '知性', default_order: :desc)
+      %th= sort_link(@search, :drink, '送品酔い', default_order: :desc)
+      %th= sort_link(@search, :illegality, '違法性', default_order: :desc)
+      %th= sort_link(@search, :regalia, 'レガリア', default_order: :desc)
+      %th{colspan: "2"} 結果リンク
+  %tbody
+    - @specs.each do |spec|
+      %tr
+        %td{rowspan: "#{ '2' if @show_condition == "1" }" }= spec.result_no
+        %td{rowspan: "#{ '2' if @show_condition == "1" }" }= pc_name_text(spec.e_no, spec.pc_name)
+        %td= spec.invation
+        %td= spec.encount
+        %td= spec.technic
+        %td= spec.goodwill
+        %td= spec.intelligence
+        %td= spec.drink
+        %td= spec.illegality
+        %td= spec.regalia.regalia.name if spec.regalia && spec.regalia.regalia
+        %td= character_link(spec.e_no)
+        %td= character_old_link(@last_result, spec.e_no, spec.result_no, spec.generate_no)
+      - if @show_condition == "1"
+        %tr
+          %td{colspan: 100}= all_condition_text(spec.condition)
+= paginate(@specs)

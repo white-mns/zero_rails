@@ -94,6 +94,10 @@ body { padding-top: 5rem; }
     padding: .8rem 1rem;
 }
 
+.page-item {
+    white-space: nowrap
+}
+
 .page-item.disabled {
     cursor: not-allowed;
 }
@@ -119,6 +123,10 @@ h2 {
     border-width: 0.05em;
     box-shadow: .3rem .3rem .3rem rgba(0,0,0,0.2);
     margin-bottom: 1rem;
+}
+
+.card.desc .card-header {
+    margin-left: 1px;
 }
 
 .formText {
@@ -213,4 +221,29 @@ input + label:hover {
 
 input + label:hover {
     background: linear-gradient(transparent 70%, #2A9FD6 0%);
+}
+
+@media screen and (max-width:767px) {
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    table.search_toggle {
+        border-collapse: collapse;
+        td, th {
+            display: block;
+        }
+    }
+    td.indent {
+        border:  0rem;
+        padding: 0rem;
+    }
+
+    .pagination {
+        display: inline;
+    }
+
+    .pagination li {
+        display: inline-block;
+    }
 }

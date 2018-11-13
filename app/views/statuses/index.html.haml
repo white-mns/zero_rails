@@ -1,0 +1,104 @@
+- @page_title = "ステータス一覧"
+%h1= @page_title
+
+.card.desc
+  .card-header
+    - act_icon(true)
+    検索仕様
+    - act_desc(true)
+  .card-body
+    = render "layouts/base_desc"
+    %p
+      %span.example_select.example_toggle.pointer
+        - help_icon
+        入力例
+        - act_desc(false)
+    #example.closed
+      = render "layouts/input_desc"
+= search_form_for @search do |f|
+  %table.search_toggle.table.table-striped.table-bordered.table-hover
+    %tbody.pointer
+      %tr
+        %td{colspan: "5"}
+          - act_icon(true)
+          絞り込み検索
+          - act_desc(true)
+    %tbody
+      %tr
+      %tr
+        %td.indent
+        %td= f.label :result_no_form, '更新回'
+        %td.formNum{colspan: "3"}= text_field_tag :result_no_form, @result_no_form
+      %tr
+        %td.indent
+        %td= f.label :e_no_form, 'Eno'
+        %td.formNum= text_field_tag :e_no_form, @e_no_form
+        %td= f.label :pc_name_form, 'キャラクター名'
+        %td.formText= text_field_tag :pc_name_form, @pc_name_form
+      %tr
+        %td.indent
+        %td= f.label :ranking_rate_form, 'ランキングレート'
+        %td.formNum= text_field_tag :ranking_rate_form, @ranking_rate_form
+        %td= f.label :rp_form, 'RP'
+        %td.formNum= text_field_tag :rp_form, @rp_form
+      %tr
+        %td.indent
+        %td= f.label :acc_total_form, '累積総合戦果'
+        %td.formNum= text_field_tag :acc_total_form, @acc_total_form
+        %td= f.label :acc_attack_form, '累積攻撃戦果'
+        %td.formNum= text_field_tag :acc_attack_form, @acc_attack_form
+      %tr
+        %td.indent
+        %td= f.label :acc_support_form, '累積支援戦果'
+        %td.formNum= text_field_tag :acc_support_form, @acc_support_form
+        %td= f.label :acc_defense_form, '累積防衛戦果'
+        %td.formNum= text_field_tag :acc_defense_form, @acc_defense_form
+      %tr
+        %td.indent
+        %td= f.label :funds_form, '所持資金'
+        %td.formNum= text_field_tag :funds_form, @funds_form
+        %td= f.label :exp_form, '経験値'
+        %td.formNum= text_field_tag :exp_form, @exp_form
+      %tr
+        %td.indent
+        %td.indent= hidden_field_tag :is_form, 1
+        %td{colspan: "3"}
+          - search_submit_button
+
+
+= paginate(@statuses)
+%br
+ヒット数：#{ @count }件
+%br
+%br
+
+%table.table.table-striped.table-bordered.table-hover
+  %thead
+    %tr
+      %th= sort_link(@search, :result_no,'更新回', default_order: :desc)
+      %th= sort_link(@search, :e_no,'キャラクター(Eno)', default_order: :desc)
+      %th= sort_link(@search, :ranking_rate, 'レート', default_order: :desc)
+      %th= sort_link(@search, :rp, 'RP', default_order: :desc)
+      %th= sort_link(@search, :acc_total, '総合', default_order: :desc)
+      %th= sort_link(@search, :acc_attack, '攻撃', default_order: :desc)
+      %th= sort_link(@search, :acc_support, '支援', default_order: :desc)
+      %th= sort_link(@search, :acc_defense, '防衛', default_order: :desc)
+      %th= sort_link(@search, :funds, '資金', default_order: :desc)
+      %th= sort_link(@search, :exp, '経験値', default_order: :desc)
+      %th{colspan: "2"} 結果リンク
+  %tbody
+    - @statuses.each do |status|
+      %tr
+        %td= status.result_no
+        %td= pc_name_text(status.e_no, status.pc_name)
+        %td= status.ranking_rate
+        %td= status.rp
+        %td= sprintf("%.2f", status.acc_total) if status.acc_total
+        %td= sprintf("%.2f", status.acc_attack) if status.acc_attack
+        %td= sprintf("%.2f", status.acc_support) if status.acc_support
+        %td= sprintf("%.2f", status.acc_defense) if status.acc_defense
+        %td= status.funds
+        %td= status.exp
+        %td= character_link(status.e_no)
+        %td= character_old_link(@last_result, status.e_no, status.result_no, status.generate_no)
+= paginate(@statuses)
