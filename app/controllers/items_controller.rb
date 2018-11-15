@@ -26,7 +26,7 @@ class ItemsController < ApplicationController
     reference_number_assign(params, "generate_no", "generate_no_form")
     reference_number_assign(params, "e_no", "e_no_form")
     reference_number_assign(params, "i_no", "i_no_form")
-    reference_number_assign(params, "name", "name_form")
+    reference_text_assign(params, "name", "name_form")
     reference_text_assign(params, "kind_name", "kind_form")
     reference_number_assign(params, "unique_1", "unique_1_form")
     reference_number_assign(params, "unique_2", "unique_2_form")
