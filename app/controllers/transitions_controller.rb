@@ -33,7 +33,7 @@ class TransitionsController < ApplicationController
         3 => "防衛"
     }
 
-    params[:q] = {}
+    params_clean(params)
     if !params["is_form"] then
         params["result_no_form"] ||= sprintf('%d',@last_result)
     end
