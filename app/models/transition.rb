@@ -6,7 +6,7 @@ class Transition < ApplicationRecord
 
     scope :to_transition_graph, ->(params) {
         pc_name = Hash[*Name.pluck(:e_no, :nickname).flatten]
-        transition_hash = self.pluck(:e_no, :turn, :value).inject(Hash.new(0)){|hash, a| hash[ [pc_name[a[0]], a[1]] ] = a[2];hash}
+        transition_hash = self.pluck(:e_no, :turn, :value).inject(Hash.new(0)){|hash, a| hash[ [pc_name[a[0]], a[1].to_time - (9 * 60 * 60)] ] = a[2];hash}
      
         transition_hash   
     }
