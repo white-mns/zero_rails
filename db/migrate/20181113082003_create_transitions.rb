@@ -5,7 +5,7 @@ class CreateTransitions < ActiveRecord::Migration[5.2]
       t.integer :generate_no
       t.integer :block_no
       t.integer :e_no
-      t.integer :turn
+      t.datetime :turn
       t.integer :act
       t.integer :data_type
       t.float :value

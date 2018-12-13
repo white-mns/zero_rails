@@ -45,10 +45,8 @@
         %td.formNum{colspan: "3"}= text_field_tag :block_no_form, @block_no_form
       %tr
         %td  
-        %td= f.label :turn_form, 'ターン'
-        %td.formNum= text_field_tag :turn_form, @turn_form
         %td= f.label :act_form, '○行動目'
-        %td.formNum= text_field_tag :act_form, @act_form
+        %td.formNum{colspan: "3"}= text_field_tag :act_form, @act_form
       %tr.sep
         %td
         %td= f.label :data_type_form, '種別'
@@ -96,7 +94,7 @@
         %td= transition.result_no
         %td= pc_name_text(transition.e_no, transition.pc_name)
         %td.sep= transition.block_no
-        %td= transition.turn
+        %td= transition.turn.to_s(:jp_time)
         %td= transition.act
         %td.sep= @data_type[transition.data_type]
         %td= transition.value

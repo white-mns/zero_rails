@@ -271,7 +271,7 @@ ActiveRecord::Schema.define(version: 2018_11_13_082036) do
     t.integer "generate_no"
     t.integer "block_no"
     t.integer "e_no"
-    t.integer "turn"
+    t.datetime "turn"
     t.integer "act"
     t.integer "data_type"
     t.float "value"
