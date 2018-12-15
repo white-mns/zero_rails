@@ -67,5 +67,5 @@
         %td= pc_name_text(name.e_no, name)
         %td= name.nickname
         %td= character_link(name.e_no)
-        %td= character_old_link(@last_result, name.e_no, name.result_no, name.generate_no)
+        %td= character_old_link(@latest_result, name.e_no, name.result_no, name.generate_no)
 = paginate(@names)

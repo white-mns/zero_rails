@@ -99,7 +99,7 @@
         %td.sep= @data_type[transition.data_type]
         %td= transition.value
         %td.sep= character_link(transition.e_no)
-        %td= character_old_link(@last_result, transition.e_no, transition.result_no, transition.generate_no)
-        %td= act_link(@last_result, transition.result_no, transition.generate_no, transition.block_no, transition.act, transition.e_no, )
-        %td= act_old_link(@last_result, transition.result_no, transition.generate_no, transition.block_no, transition.act, transition.e_no, )
+        %td= character_old_link(@latest_result, transition.e_no, transition.result_no, transition.generate_no)
+        %td= act_link(@latest_result, transition.result_no, transition.generate_no, transition.block_no, transition.act, transition.e_no, )
+        %td= act_old_link(@latest_result, transition.result_no, transition.generate_no, transition.block_no, transition.act, transition.e_no, )
 = paginate(@transitions)

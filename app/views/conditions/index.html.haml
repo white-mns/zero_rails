@@ -68,5 +68,5 @@
         %td= pc_name_text(condition.e_no, condition.pc_name)
         %td= condition.condition.name if condition.condition
         %td= character_link(condition.e_no)
-        %td= character_old_link(@last_result, condition.e_no, condition.result_no, condition.generate_no)
+        %td= character_old_link(@latest_result, condition.e_no, condition.result_no, condition.generate_no)
 = paginate(@conditions)

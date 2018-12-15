@@ -158,5 +158,5 @@
           %td= market.intelligence
           %td= market.add_effect.name if market.add_effect
         %td= character_link(market.e_no)
-        %td= character_old_link(@last_result, market.e_no, market.result_no, market.generate_no)
+        %td= character_old_link(@latest_result, market.e_no, market.result_no, market.generate_no)
 = paginate(@markets)

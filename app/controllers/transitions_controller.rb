@@ -25,7 +25,7 @@ class TransitionsController < ApplicationController
   end
 
   def param_set
-    @last_result = Name.maximum('result_no')
+    @latest_result = Name.maximum('result_no')
 
     @data_type = {
         1 => "攻撃",
@@ -35,7 +35,7 @@ class TransitionsController < ApplicationController
 
     params_clean(params)
     if !params["is_form"] then
-        params["result_no_form"] ||= sprintf('%d',@last_result)
+        params["result_no_form"] ||= sprintf('%d',@latest_result)
     end
     
     reference_text_assign(params, "pc_name_name", "pc_name_form")

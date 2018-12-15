@@ -68,5 +68,5 @@
         %td= pc_name_text(partnership.e_no, partnership.pc_name)
         %td= pc_name_text(partnership.partner_e_no, partnership.partnership)
         %td= character_link(partnership.e_no)
-        %td= character_old_link(@last_result, partnership.e_no, partnership.result_no, partnership.generate_no)
+        %td= character_old_link(@latest_result, partnership.e_no, partnership.result_no, partnership.generate_no)
 = paginate(@partnerships)

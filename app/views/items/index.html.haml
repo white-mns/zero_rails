@@ -170,5 +170,5 @@
           %td= item.intelligence
           %td= item.add_effect.name if item.add_effect
         %td= character_link(item.e_no)
-        %td= character_old_link(@last_result, item.e_no, item.result_no, item.generate_no)
+        %td= character_old_link(@latest_result, item.e_no, item.result_no, item.generate_no)
 = paginate(@items)

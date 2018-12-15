@@ -74,5 +74,5 @@
         %td= reward.reward.name if reward.reward
         %td= reward.value
         %td= character_link(reward.e_no)
-        %td= character_old_link(@last_result, reward.e_no, reward.result_no, reward.generate_no)
+        %td= character_old_link(@latest_result, reward.e_no, reward.result_no, reward.generate_no)
 = paginate(@rewards)
