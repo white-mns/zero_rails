@@ -118,7 +118,7 @@
         %td= spec.illegality
         %td= spec.regalia.regalia.name if spec.regalia && spec.regalia.regalia
         %td= character_link(spec.e_no)
-        %td= character_old_link(@last_result, spec.e_no, spec.result_no, spec.generate_no)
+        %td= character_old_link(@latest_result, spec.e_no, spec.result_no, spec.generate_no)
       - if @show_condition == "1"
         %tr
           %td{colspan: 100}= all_condition_text(spec.condition)

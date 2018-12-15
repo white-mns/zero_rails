@@ -95,5 +95,5 @@
         %td= assembly_num.unit.name if assembly_num.unit
         %td= assembly_num.num
         %td= character_link(assembly_num.e_no)
-        %td= character_old_link(@last_result, assembly_num.e_no, assembly_num.result_no, assembly_num.generate_no)
+        %td= character_old_link(@latest_result, assembly_num.e_no, assembly_num.result_no, assembly_num.generate_no)
 = paginate(@assembly_nums)

@@ -262,7 +262,7 @@
         - if @show_detail_condition_1 == "1"
           %td.sep= all_condition_text(next_battle.spec.condition) if next_battle.spec
         %td.sep= character_link(next_battle.e_no)
-        %td= character_old_link(@last_result, next_battle.e_no, next_battle.result_no, next_battle.generate_no)
+        %td= character_old_link(@latest_result, next_battle.e_no, next_battle.result_no, next_battle.generate_no)
       -if @show_all_assembly
         %tr
           %td{colspan: 100}= all_assembly_text(next_battle.assembly)

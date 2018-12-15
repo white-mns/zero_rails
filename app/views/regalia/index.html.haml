@@ -68,5 +68,5 @@
         %td= pc_name_text(regalium.e_no, regalium.pc_name)
         %td= regalium.regalia.name if regalium.regalia
         %td= character_link(regalium.e_no)
-        %td= character_old_link(@last_result, regalium.e_no, regalium.result_no, regalium.generate_no)
+        %td= character_old_link(@latest_result, regalium.e_no, regalium.result_no, regalium.generate_no)
 = paginate(@regalia)

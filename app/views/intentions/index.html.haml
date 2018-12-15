@@ -68,5 +68,5 @@
         %td= pc_name_text(intention.e_no, intention.pc_name)
         %td= intention.intention.name if intention.intention
         %td= character_link(intention.e_no)
-        %td= character_old_link(@last_result, intention.e_no, intention.result_no, intention.generate_no)
+        %td= character_old_link(@latest_result, intention.e_no, intention.result_no, intention.generate_no)
 = paginate(@intentions)

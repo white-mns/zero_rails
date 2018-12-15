@@ -12,11 +12,11 @@ class ItemsController < ApplicationController
   end
 
   def param_set
-    @last_result = Name.maximum('result_no')
+    @latest_result = Name.maximum('result_no')
 
     params_clean(params)
     if !params["is_form"] then
-        params["result_no_form"] ||= sprintf('%d',@last_result)
+        params["result_no_form"] ||= sprintf('%d',@latest_result)
         @show_detail_1 = "1"
     end
     params[:q]["e_no_not_eq_any"] ||= [0]
