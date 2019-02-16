@@ -1,4 +1,42 @@
 module MyUtility
+  # クエリパラメータをRunsuck検索用関数とフォーム表示用変数に渡す
+  def params_to_form(params, form_params, column_name: nil, params_name: nil, type: nil)
+      if type == "number" then
+        function = method(:reference_number_assign)
+
+      elsif type == "text" then
+        function = method(:reference_text_assign)
+      end
+
+      if function then
+        function.call(params, column_name, params_name)
+      end
+
+      form_params[ params_name ] = params[ params_name ]
+  end
+
+  # チェックボックスから取得したクエリパラメータをRunsuck検索用クエリに渡す
+  def checkbox_params_set_query(params, form_params, query_name: nil, checkboxes: nil)
+    params[:q][query_name] = []
+    if !params["is_form"] then
+        checkboxes.each do |hash|
+            if hash[:first_checked] then
+                params[ hash[:params_name] ] = "on"
+            end
+        end
+    end
+
+    checkboxes.each do |hash|
+        if params[ hash[:params_name] ] == "on" then params[:q][query_name].push(hash[:value]) end
+        form_params[ hash[:params_name] ] = params[ hash[:params_name] ]
+    end
+  end
+
+  # 開閉情報のクエリパラメータ受け渡し
+  def toggle_params_to_variable(params, form_params, params_name: nil, first_opened: false)
+      form_params[ params_name ] = (!params["is_form"] && first_open) ? "1" : params[ params_name ]
+  end
+
   # 検索文字列を分割し、Ransackが参照する配列に割り当てる
   def reference_word_assign(param_adr, data_name, param_key, match_suffix)
     if(!param_adr[param_key]) then
