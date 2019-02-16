@@ -34,7 +34,7 @@ module MyUtility
 
   # 開閉情報のクエリパラメータ受け渡し
   def toggle_params_to_variable(params, form_params, params_name: nil, first_opened: false)
-      form_params[ params_name ] = (!params["is_form"] && first_open) ? "1" : params[ params_name ]
+      form_params[ params_name ] = (!params["is_form"] && first_opened) ? "1" : params[ params_name ]
   end
 
   # 検索文字列を分割し、Ransackが参照する配列に割り当てる
