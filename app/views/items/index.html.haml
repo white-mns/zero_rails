@@ -43,8 +43,28 @@
     %tbody
       %tr
         %td.indent
-        - td_form(f, @form_params, @placeholder, class_name: "formText",  label: "種別", params_name: "kind_form", placeholder: "ItemKind")
-        - td_form(f, @form_params, @placeholder, class_name: "formText",  label: "元の名前", params_name: "orig_name_form", placeholder: "OrigName")
+        - td_form(f, @form_params, @placeholder,                         label: "ユニット属性", params_name: "kind_form", colspan: 3, 
+                    checkboxes: [{label: "得", params_name: "type_profit", class_name: "after_space"},
+                                 {label: "カルマ", params_name: "type_karma", class_name: "after_space mobile_br"},
+                                 {label: "虚空", params_name: "type_air", class_name: "after_space"},
+                                 {label: "シュラ", params_name: "type_syura"}])
+      %tr
+        %td.indent
+        - td_form(f, @form_params, @placeholder,                         label: "ユニット属性", params_name: "kind_form", colspan: 3, 
+                    checkboxes: [{label: "物理", params_name: "type_physics", class_name: "after_space"},
+                                 {label: "冷気", params_name: "type_cold", class_name: "after_space"},
+                                 {label: "聖魔", params_name: "type_seima", class_name: "after_space mobile_br"},
+                                 {label: "電撃", params_name: "type_electric", class_name: "after_space"},
+                                 {label: "火炎", params_name: "type_flame", class_name: "after_space"}])
+      %tr
+        %td.indent
+        - td_form(f, @form_params, @placeholder,                         label: "ユニット属性", params_name: "kind_form", colspan: 3, 
+                    checkboxes: [{label: "護衛", params_name: "type_guard", class_name: "after_space"},
+                                 {label: "罠", params_name: "type_trap", class_name: "after_space"},
+                                 {label: "建築", params_name: "type_architecture", class_name: "after_space"}])
+      %tr
+        %td.indent
+        - td_form(f, @form_params, @placeholder, class_name: "formText",  label: "元の名前", params_name: "orig_name_form", placeholder: "OrigName", colspan: 3)
       %tr
         %td.indent
         - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "強度", params_name: "strength_form", colspan: 3)

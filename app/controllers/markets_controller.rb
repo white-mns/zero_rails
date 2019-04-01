@@ -48,6 +48,34 @@ class MarketsController < ApplicationController
     params_to_form(params, @form_params, column_name: "charge", params_name: "charge_form", type: "number")
     params_to_form(params, @form_params, column_name: "orig_name", params_name: "orig_name_form", type: "text")
 
+    params[:q][:g] = {}
+    params[:q][:g]["0"] = {
+        "g" => {
+            "0" => {},
+            "1" => {},
+            "2" => {}
+        },
+        "m" => "and"
+    }
+
+    checkbox_params_set_query_any(params, @form_params, query_name: "kind_name_cont_any", params_q: params[:q][:g]["0"][:g]["0"],
+                             checkboxes: [{params_name: "type_profit", value: "徳", first_checked: false},
+                                          {params_name: "type_karma", value: "カルマ", first_checked: false},
+                                          {params_name: "type_air", value: "虚空", first_checked: false},
+                                          {params_name: "type_syura", value: "シュラ", first_checked: false}])
+
+    checkbox_params_set_query_any(params, @form_params, query_name: "kind_name_cont_any", params_q: params[:q][:g]["0"][:g]["1"],
+                             checkboxes: [{params_name: "type_guard", value: "護衛", first_checked: false},
+                                          {params_name: "type_trap", value: "罠", first_checked: false},
+                                          {params_name: "type_architecture", value: "建築", first_checked: false}])
+
+    checkbox_params_set_query_any(params, @form_params, query_name: "kind_name_cont_any", params_q: params[:q][:g]["0"][:g]["2"],
+                             checkboxes: [{params_name: "type_physics", value: "物理", first_checked: false},
+                                          {params_name: "type_cold", value: "冷気", first_checked: false},
+                                          {params_name: "type_seima", value: "聖魔", first_checked: false},
+                                          {params_name: "type_electric", value: "電撃", first_checked: false},
+                                          {params_name: "type_flame", value: "火炎", first_checked: false}])
+
     @base_first    = (!params["is_form"]) ? "1" : "0"
     toggle_params_to_variable(params, @form_params, params_name: "show_detail_1", first_opened: true)
     toggle_params_to_variable(params, @form_params, params_name: "show_detail_2")
