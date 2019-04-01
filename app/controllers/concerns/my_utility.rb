@@ -16,8 +16,12 @@ module MyUtility
   end
 
   # 選択式チェックボックスから取得したクエリパラメータをRunsuck検索用クエリに渡す
-  def checkbox_params_set_query_any(params, form_params, query_name: nil, checkboxes: nil)
-    params[:q][query_name] = []
+  def checkbox_params_set_query_any(params, form_params, query_name: nil, checkboxes: nil, params_q: nil)
+    if !params_q then
+        params_q = params[:q]
+    end
+
+    params_q[query_name] = []
     if !params["is_form"] then
         checkboxes.each do |hash|
             if hash[:first_checked] then
@@ -31,26 +35,30 @@ module MyUtility
     end
 
     checkboxes.each do |hash|
-        if params[ hash[:params_name] ] == "on" then params[:q][query_name].push(hash[:value]) end
+        if params[ hash[:params_name] ] == "on" then params_q[query_name].push(hash[:value]) end
         form_params[ hash[:params_name] ] = params[ hash[:params_name] ]
     end
   end
 
   # 単一条件チェックボックスから取得したクエリパラメータをRunsuck検索用クエリに渡す
-  def checkbox_params_set_query_single(params, form_params, query_name: nil, checkbox: nil)
+  def checkbox_params_set_query_single(params, form_params, query_name: nil, checkbox: nil, set_params: nil)
+    if !params_q then
+        params_q = params[:q]
+    end
+
     if !params["is_form"] then
         if checkbox[:first_checked] then
             params[ checkbox[:params_name] ] = "on"
         end
     end
 
-    if params[ checkbox[:params_name] ] == "on" then params[:q][checkbox[:query_name]] = checkbox[:value] end
+    if params[ checkbox[:params_name] ] == "on" then params_q[checkbox[:query_name]] = checkbox[:value] end
     form_params[ checkbox[:params_name] ] = params[ checkbox[:params_name] ]
   end
 
   # 開閉情報のクエリパラメータ受け渡し
   def toggle_params_to_variable(params, form_params, params_name: nil, first_opened: false)
-      form_params[ params_name ] = (!params["is_form"] && first_open) ? "1" : params[ params_name ]
+      form_params[ params_name ] = (!params["is_form"] && first_opened) ? "1" : params[ params_name ]
   end
 
   # 検索文字列を分割し、Ransackが参照する配列に割り当てる
