@@ -43,7 +43,7 @@ module MyUtility
         return
     end
 
-    texts = (param_adr[param_key].match(/ /)) ? param_adr[param_key].split(" ") : [param_adr[param_key].dup]
+    texts = (param_adr[param_key].match(/ /)) ? param_adr[param_key].gsub(/[“”]/, "\"").split(" ") : [param_adr[param_key].dup.gsub(/[“”]/,"\"")]
 
     if texts.is_a?(Array) then
         for text in texts do
