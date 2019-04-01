@@ -15,13 +15,17 @@ module MyUtility
       form_params[ params_name ] = params[ params_name ]
   end
 
-  # チェックボックスから取得したクエリパラメータをRunsuck検索用クエリに渡す
-  def checkbox_params_set_query(params, form_params, query_name: nil, checkboxes: nil)
+  # 選択式チェックボックスから取得したクエリパラメータをRunsuck検索用クエリに渡す
+  def checkbox_params_set_query_any(params, form_params, query_name: nil, checkboxes: nil)
     params[:q][query_name] = []
     if !params["is_form"] then
         checkboxes.each do |hash|
             if hash[:first_checked] then
-                params[ hash[:params_name] ] = "on"
+                if params[ hash[:params_name] ] == "off" then
+                    params.delete( hash[:params_name] )
+                else
+                    params[ hash[:params_name] ] = "on"
+                end
             end
         end
     end
@@ -30,6 +34,18 @@ module MyUtility
         if params[ hash[:params_name] ] == "on" then params[:q][query_name].push(hash[:value]) end
         form_params[ hash[:params_name] ] = params[ hash[:params_name] ]
     end
+  end
+
+  # 単一条件チェックボックスから取得したクエリパラメータをRunsuck検索用クエリに渡す
+  def checkbox_params_set_query_single(params, form_params, query_name: nil, checkbox: nil)
+    if !params["is_form"] then
+        if checkbox[:first_checked] then
+            params[ checkbox[:params_name] ] = "on"
+        end
+    end
+
+    if params[ checkbox[:params_name] ] == "on" then params[:q][checkbox[:query_name]] = checkbox[:value] end
+    form_params[ checkbox[:params_name] ] = params[ checkbox[:params_name] ]
   end
 
   # 開閉情報のクエリパラメータ受け渡し
