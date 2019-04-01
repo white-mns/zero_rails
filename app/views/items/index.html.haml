@@ -27,90 +27,57 @@
       %tr
       %tr
         %td.indent
-        %td= f.label :result_no_form, '更新回'
-        %td.formNum{colspan: "3"}= text_field_tag :result_no_form, @result_no_form
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "更新回", params_name: "result_no_form", placeholder: nil, colspan: 3)
       %tr
         %td.indent
-        %td= f.label :e_no_form, 'Eno'
-        %td.formNum= text_field_tag :e_no_form, @e_no_form
-        %td= f.label :pc_name_form, 'キャラクター名'
-        %td.formText= text_field_tag :pc_name_form, @pc_name_form
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "Eno", params_name: "e_no_form", placeholder: "Number")
+        - td_form(f, @form_params, @placeholder, class_name: "formText", label: "キャラクター名", params_name: "pc_name_form", placeholder: "Name")
       %tr
         %td.indent
-        %td= f.label :name_form, 'アイテム名'
-        %td.formText{colspan: "3"}= text_field_tag :name_form, @name_form
-    %tbody.tbody_toggle.pointer
-      %tr
-        %td{:colspan => "5"}
-          = hidden_field_tag :base_first, @base_first
-          = hidden_field_tag :show_detail_1, @show_detail_1
-          - act_icon(false)
-          = label_tag :show_detail_1, '　基礎情報を表示する', class: "act_desc"
-          = label_tag :show_detail_1, '　基礎情報を非表示にする', class: "act_desc closed"
-          %div.act_desc 　種別、元の名前、付加A、付加B、強度、在庫、装備
+        - td_form(f, @form_params, @placeholder, class_name: "formText",  label: "アイテム名", params_name: "name_form", placeholder: "Item")
+
+    - #==========================================================================================================================
+    - tbody_toggle(@form_params, params_name: "show_detail_1",
+                    label: {open: "基礎情報を表示する", close: "基礎情報を非表示にする"},
+                    act_desc: "種別、元の名前、強度、装備", base_first: true)
     %tbody
       %tr
         %td.indent
-        %td= f.label :kind_form, '種別'
-        %td.formText= text_field_tag :kind_form, @kind_form
-        %td= f.label :orig_name_form, '元の名前'
-        %td.formText= text_field_tag :orig_name_form, @orig_name_form
+        - td_form(f, @form_params, @placeholder, class_name: "formText",  label: "種別", params_name: "kind_form", placeholder: "ItemKind")
+        - td_form(f, @form_params, @placeholder, class_name: "formText",  label: "元の名前", params_name: "orig_name_form", placeholder: "OrigName")
       %tr
         %td.indent
-        %td= f.label :fuka_1_form, '付加A'
-        %td.formText= text_field_tag :fuka_1_form, @fuka_1_form
-        %td= f.label :fuka_2_form, '付加B'
-        %td.formText= text_field_tag :fuka_2_form, @fuka_2_form
-      %tr
-        %td.indent
-        %td= f.label :strength_form, '強度'
-        %td.formNum{colspan: "3"}= text_field_tag :strength_form, @strength_form
-      %tr
-        %td.indent
-        %td= f.label :stock_form, '在庫'
-        %td.formNum= text_field_tag :stock_form, @stock_form
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "強度", params_name: "strength_form", colspan: 3)
       %tr.sep
         %td.indent
-        %td= f.label :equip_form, '装備'
-        %td.formNum{colspan: "3"}
-          = check_box_tag :is_equip, @is_equip, @is_equip
-          = label_tag :is_equip, '装備中'
-          　
-          = check_box_tag :no_equip, @no_equip, @no_equip
-          = label_tag :no_equip, '未装備'
-    %tbody.tbody_toggle.pointer
-      %tr
-        %td{:colspan => "5"}
-          = hidden_field_tag :show_detail_2, @show_detail_2
-          - act_icon(false)
-          = label_tag :show_detail_1, '　詳細その1を表示する', class: "act_desc"
-          = label_tag :show_detail_1, '　詳細その1を非表示にする', class: "act_desc closed"
-          %div.act_desc 　価格、侵攻速度、エンカウント、機巧技術、好感度、知性、追加効果
+        - td_form(f, @form_params, @placeholder,                         label: "装備", params_name: "equip_form", colspan: 3, 
+                    checkboxes: [{label: "装備中", params_name: "is_equip", class_name: "after_space"},
+                                 {label: "未装備", params_name: "no_equip"}])
+
+    - #==========================================================================================================================
+    - tbody_toggle(@form_params, params_name: "show_detail_2",
+                    label: {open: "詳細その1を表示する", close: "詳細その1を非表示にする"},
+                    act_desc: "価格、侵攻速度、エンカウント、機巧技術、好感度、知性、追加効果", base_first: false)
     %tbody.closed
       %tr
         %td.indent
-        %td= f.label :value_form, '価格'
-        %td.formNum{colspan: "3"}= text_field_tag :value_form, @value_form
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "価格", params_name: "value_form", colspan: 3)
       %tr
         %td.indent
-        %td= f.label :invation_form, '侵攻速度'
-        %td.formNum= text_field_tag :invation_form, @invation_form
-        %td= f.label :encount_form, 'エンカウント'
-        %td.formNum= text_field_tag :encount_form, @encount_form
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "侵攻速度", params_name: "invation_form")
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "エンカウント", params_name: "encount_form")
       %tr
         %td.indent
-        %td= f.label :technic_form, '機巧技術'
-        %td.formNum= text_field_tag :technic_form, @technic_form
-        %td= f.label :goodwill_form, '好感度'
-        %td.formNum= text_field_tag :goodwill_form, @goodwill_form
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "機巧技術", params_name: "technic_form")
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "好感度", params_name: "goodwill_form")
       %tr
         %td.indent
-        %td= f.label :intelligence_form, '知性'
-        %td.formNum{colspan: "3"}= text_field_tag :intelligence_form, @intelligence_form
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "知性", params_name: "intelligence_form", colspan: 3)
       %tr
         %td.indent
-        %td= f.label :add_effect_form, '追加効果'
-        %td.formText{colspan: "3"}= text_field_tag :add_effect_form, @add_effect_form
+        - td_form(f, @form_params, @placeholder, class_name: "formText",  label: "追加効果", params_name: "add_effect_form", placeholder: "AddEffect", colspan: 3)
+
+    - #==========================================================================================================================
     %tbody
       %tr
         %td.indent
@@ -130,15 +97,13 @@
       %th= sort_link(@search, :result_no,'更新回', default_order: :desc)
       %th= sort_link(@search, :e_no,'キャラクター(Eno)', default_order: :desc)
       %th= sort_link(@search, :name, 'アイテム名', default_order: :desc)
-      - if @show_detail_1 == "1"
+      - if @form_params["show_detail_1"] == "1"
         %th.sep= sort_link(@search, :kind, '種別', default_order: :desc)
-        %th= sort_link(@search, :orig_name, '詳細', default_order: :desc)
+        %th= sort_link(@search, :orig_name, '元の名前', default_order: :desc)
         %th.sep= sort_link(@search, :strength, '強度', default_order: :desc)
-        %th= sort_link(@search, :fuka_1, '付加A', default_order: :desc)
-        %th= sort_link(@search, :fuka_2, '付加B', default_order: :desc)
         %th= sort_link(@search, :stock, '在庫', default_order: :desc)
         %th.sep= sort_link(@search, :equip, '装備', default_order: :desc)
-      - if @show_detail_2 == "1"
+      - if @form_params["show_detail_2"] == "1"
         %th.sep= sort_link(@search, :value, '価格', default_order: :desc)
         %th= sort_link(@search, :invation, '侵攻速度', default_order: :desc)
         %th= sort_link(@search, :encount, 'エンカウント', default_order: :desc)
@@ -153,15 +118,13 @@
         %td= item.result_no
         %td= pc_name_text(item.e_no, item.pc_name)
         %td= item.name
-        - if @show_detail_1 == "1"
+        - if @form_params["show_detail_1"] == "1"
           %td.sep= item.kind.name if item.kind
           %td= item.orig.name if item.orig
           %td.sep= item.strength
-          %td= item.fuka_1.name if item.fuka_1
-          %td= item.fuka_2.name if item.fuka_2
           %td= item.stock
           %td.sep.td_sign= "○" if item.equip != 0
-        - if @show_detail_2 == "1"
+        - if @form_params["show_detail_2"] == "1"
           %td.sep= item.value
           %td= item.invation
           %td= item.encount
