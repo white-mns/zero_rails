@@ -41,7 +41,7 @@ module MyUtility
   end
 
   # 単一条件チェックボックスから取得したクエリパラメータをRunsuck検索用クエリに渡す
-  def checkbox_params_set_query_single(params, form_params, query_name: nil, checkbox: nil, set_params: nil)
+  def checkbox_params_set_query_single(params, form_params, query_name: nil, checkbox: nil, params_q: nil)
     if !params_q then
         params_q = params[:q]
     end
