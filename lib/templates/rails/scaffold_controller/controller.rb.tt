@@ -9,6 +9,7 @@ class <%= controller_class_name %>Controller < ApplicationController
 
   # GET <%= route_url %>
   def index
+    placeholder_set
     param_set
     @count	= <%= class_name %>.notnil().includes(:pc_name).search(params[:q]).result.count()
     @search	= <%= class_name %>.notnil().includes(:pc_name).page(params[:page]).search(params[:q])
@@ -17,21 +18,18 @@ class <%= controller_class_name %>Controller < ApplicationController
   end
 
   def param_set
+    @form_params = {}
+
     @latest_result = Name.maximum('result_no')
 
     params_clean(params)
     if !params["is_form"] then
         params["result_no_form"] ||= sprintf('%d',@latest_result)
     end
-    
-    reference_text_assign(params, "pc_name_name", "pc_name_form")
+
+    params_to_form(params, @form_params, column_name: "pc_name_name", params_name: "pc_name_form", type: "text")
 <% attributes.reject(&:password_digest?).each do |attribute| -%>
-    reference_number_assign(params, "<%= attribute.name %>", "<%= attribute.name %>_form")
-<% end -%>
-    
-    @pc_name_form = params["pc_name_form"]
-<% attributes.reject(&:password_digest?).each do |attribute| -%>
-    @<%= attribute.name %>_form = params["<%= attribute.name %>_form"]
+    params_to_form(params, @form_params, column_name: "<%= attribute.name %>", params_name: "<%= attribute.name %>_form", type: "number")
 <% end -%>
   end
   # GET <%= route_url %>/1

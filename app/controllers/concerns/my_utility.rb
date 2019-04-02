@@ -1,11 +1,73 @@
 module MyUtility
+  # クエリパラメータをRunsuck検索用関数とフォーム表示用変数に渡す
+  def params_to_form(params, form_params, column_name: nil, params_name: nil, type: nil)
+      if type == "number" then
+        function = method(:reference_number_assign)
+
+      elsif type == "text" then
+        function = method(:reference_text_assign)
+      end
+
+      if function then
+        function.call(params, column_name, params_name)
+      end
+
+      form_params[ params_name ] = params[ params_name ]
+  end
+
+  # 選択式チェックボックスから取得したクエリパラメータをRunsuck検索用クエリに渡す
+  def checkbox_params_set_query_any(params, form_params, query_name: nil, checkboxes: nil, params_q: nil)
+    if !params_q then
+        params_q = params[:q]
+    end
+
+    params_q[query_name] = []
+    if !params["is_form"] then
+        checkboxes.each do |hash|
+            if hash[:first_checked] then
+                if params[ hash[:params_name] ] == "off" then
+                    params.delete( hash[:params_name] )
+                else
+                    params[ hash[:params_name] ] = "on"
+                end
+            end
+        end
+    end
+
+    checkboxes.each do |hash|
+        if params[ hash[:params_name] ] == "on" then params_q[query_name].push(hash[:value]) end
+        form_params[ hash[:params_name] ] = params[ hash[:params_name] ]
+    end
+  end
+
+  # 単一条件チェックボックスから取得したクエリパラメータをRunsuck検索用クエリに渡す
+  def checkbox_params_set_query_single(params, form_params, query_name: nil, checkbox: nil, params_q: nil)
+    if !params_q then
+        params_q = params[:q]
+    end
+
+    if !params["is_form"] then
+        if checkbox[:first_checked] then
+            params[ checkbox[:params_name] ] = "on"
+        end
+    end
+
+    if params[ checkbox[:params_name] ] == "on" then params_q[checkbox[:query_name]] = checkbox[:value] end
+    form_params[ checkbox[:params_name] ] = params[ checkbox[:params_name] ]
+  end
+
+  # 開閉情報のクエリパラメータ受け渡し
+  def toggle_params_to_variable(params, form_params, params_name: nil, first_opened: false)
+      form_params[ params_name ] = (!params["is_form"] && first_opened) ? "1" : params[ params_name ]
+  end
+
   # 検索文字列を分割し、Ransackが参照する配列に割り当てる
   def reference_word_assign(param_adr, data_name, param_key, match_suffix)
     if(!param_adr[param_key]) then
         return
     end
 
-    texts = (param_adr[param_key].match(/ /)) ? param_adr[param_key].split(" ") : [param_adr[param_key].dup]
+    texts = (param_adr[param_key].match(/ /)) ? param_adr[param_key].gsub(/[“”]/, "\"").split(" ") : [param_adr[param_key].dup.gsub(/[“”]/,"\"")]
 
     if texts.is_a?(Array) then
         for text in texts do

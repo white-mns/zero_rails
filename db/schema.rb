@@ -271,14 +271,16 @@ ActiveRecord::Schema.define(version: 2018_11_13_082036) do
     t.integer "generate_no"
     t.integer "block_no"
     t.integer "e_no"
-    t.datetime "turn"
+    t.integer "turn"
+    t.datetime "acted_at"
     t.integer "act"
     t.integer "data_type"
     t.float "value"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["data_type"], name: "index_transitions_on_data_type"
-    t.index ["e_no", "act", "turn", "block_no", "result_no", "generate_no"], name: "act_eno"
+    t.index ["e_no", "act", "acted_at", "block_no", "result_no", "generate_no"], name: "eno_act_actedat"
+    t.index ["e_no", "act", "turn", "block_no", "result_no", "generate_no"], name: "eno_act_turn"
     t.index ["value"], name: "index_transitions_on_value"
   end
 

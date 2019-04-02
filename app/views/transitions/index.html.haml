@@ -82,19 +82,19 @@
       %th= sort_link(@search, :result_no,'更新回', default_order: :desc)
       %th= sort_link(@search, :e_no,'キャラクター(Eno)', default_order: :desc)
       %th.sep= sort_link(@search, :block_no, 'ブロック', default_order: :desc)
-      %th= sort_link(@search, :turn, 'ターン', default_order: :desc)
+      %th= sort_link(@search, :created_at, '時刻', default_order: :desc)
       %th= sort_link(@search, :act, '行動', default_order: :desc)
       %th.sep= sort_link(@search, :data_type, '種別', default_order: :desc)
       %th= sort_link(@search, :value, '値', default_order: :desc)
       %th.sep{colspan: "2"} 結果リンク
-      %th{colspan: "2"} 戦闘機動リンク
+      %th{colspan: "2"} 侵略リンク
   %tbody
     - @transitions.each do |transition|
       %tr
         %td= transition.result_no
         %td= pc_name_text(transition.e_no, transition.pc_name)
         %td.sep= transition.block_no
-        %td= transition.turn.to_s(:jp_time)
+        %td= transition.acted_at.to_s(:jp_time)
         %td= transition.act
         %td.sep= @data_type[transition.data_type]
         %td= transition.value

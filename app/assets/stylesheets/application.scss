@@ -227,6 +227,10 @@ span.input::after {
     content: "　" ;
 }
 
+span.after_space::after {
+    content: "　" ;
+}
+
 @media screen and (max-width:767px) {
     h1 {
         font-size: 1.5rem;
@@ -256,4 +260,12 @@ span.input::after {
         white-space: pre ;
     }
 
+    span.mobile_br::after {
+        content: "\a" ;
+        white-space: pre ;
+    }
+
+    ul{
+        padding-left: 1rem;
+    }
 }

@@ -44,6 +44,7 @@ class TransitionsController < ApplicationController
     reference_number_assign(params, "block_no", "block_no_form")
     reference_number_assign(params, "e_no", "e_no_form")
     reference_number_assign(params, "turn", "turn_form")
+    reference_number_assign(params, "created_at", "created_at_form")
     reference_number_assign(params, "act", "act_form")
     reference_number_assign(params, "data_type", "data_type_form")
     reference_number_assign(params, "value", "value_form")
@@ -124,6 +125,6 @@ class TransitionsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def transition_params
-      params.require(:transition).permit(:result_no, :generate_no, :block_no, :e_no, :turn, :act, :data_type, :value)
+      params.require(:transition).permit(:result_no, :generate_no, :block_no, :e_no, :turn, :acted_at, :act, :data_type, :value)
     end
 end

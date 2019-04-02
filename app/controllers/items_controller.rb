@@ -4,6 +4,7 @@ class ItemsController < ApplicationController
 
   # GET /items
   def index
+    placeholder_set
     param_set
     @count	= Item.notnil().includes(:pc_name, :kind, :orig, :add_effect, :fuka_1, :fuka_2).search(params[:q]).result.count()
     @search	= Item.notnil().includes(:pc_name, :kind, :orig, :add_effect, :fuka_1, :fuka_2).page(params[:page]).search(params[:q])
@@ -12,6 +13,8 @@ class ItemsController < ApplicationController
   end
 
   def param_set
+    @form_params = {}
+
     @latest_result = Name.maximum('result_no')
 
     params_clean(params)
@@ -21,28 +24,28 @@ class ItemsController < ApplicationController
     end
     params[:q]["e_no_not_eq_any"] ||= [0]
 
-    reference_text_assign(params, "pc_name_name", "pc_name_form")
-    reference_number_assign(params, "result_no", "result_no_form")
-    reference_number_assign(params, "generate_no", "generate_no_form")
-    reference_number_assign(params, "e_no", "e_no_form")
-    reference_number_assign(params, "i_no", "i_no_form")
-    reference_text_assign(params, "name", "name_form")
-    reference_text_assign(params, "kind_name", "kind_form")
-    reference_number_assign(params, "unique_1", "unique_1_form")
-    reference_number_assign(params, "unique_2", "unique_2_form")
-    reference_number_assign(params, "value", "value_form")
-    reference_number_assign(params, "invation", "invation_form")
-    reference_number_assign(params, "encount", "encount_form")
-    reference_number_assign(params, "technic", "technic_form")
-    reference_number_assign(params, "goodwill", "goodwill_form")
-    reference_number_assign(params, "intelligence", "intelligence_form")
-    reference_number_assign(params, "stock", "stock_form")
-    reference_text_assign(params, "add_effect_name", "add_effect_form")
-    reference_number_assign(params, "strength", "strength_form")
-    reference_number_assign(params, "equip", "equip_form")
-    reference_text_assign(params, "fuka_1_name", "fuka_1_form")
-    reference_text_assign(params, "fuka_2_name", "fuka_2_form")
-    reference_text_assign(params, "orig_name", "orig_name_form")
+    params_to_form(params, @form_params, column_name: "pc_name_name", params_name: "pc_name_form", type: "text")
+    params_to_form(params, @form_params, column_name: "result_no", params_name: "result_no_form", type: "number")
+    params_to_form(params, @form_params, column_name: "generate_no", params_name: "generate_no_form", type: "number")
+    params_to_form(params, @form_params, column_name: "e_no", params_name: "e_no_form", type: "number")
+    params_to_form(params, @form_params, column_name: "i_no", params_name: "i_no_form", type: "number")
+    params_to_form(params, @form_params, column_name: "name", params_name: "name_form", type: "text")
+    params_to_form(params, @form_params, column_name: "kind_name", params_name: "kind_form", type: "text")
+    params_to_form(params, @form_params, column_name: "unique_1", params_name: "unique_1_form", type: "number")
+    params_to_form(params, @form_params, column_name: "unique_2", params_name: "unique_2_form", type: "number")
+    params_to_form(params, @form_params, column_name: "value", params_name: "value_form", type: "number")
+    params_to_form(params, @form_params, column_name: "invation", params_name: "invation_form", type: "number")
+    params_to_form(params, @form_params, column_name: "encount", params_name: "encount_form", type: "number")
+    params_to_form(params, @form_params, column_name: "technic", params_name: "technic_form", type: "number")
+    params_to_form(params, @form_params, column_name: "goodwill", params_name: "goodwill_form", type: "number")
+    params_to_form(params, @form_params, column_name: "intelligence", params_name: "intelligence_form", type: "number")
+    params_to_form(params, @form_params, column_name: "stock", params_name: "stock_form", type: "number")
+    params_to_form(params, @form_params, column_name: "add_effect_name", params_name: "add_effect_form", type: "text")
+    params_to_form(params, @form_params, column_name: "strength", params_name: "strength_form", type: "number")
+    params_to_form(params, @form_params, column_name: "equip", params_name: "equip_form", type: "number")
+    params_to_form(params, @form_params, column_name: "fuka_1_name", params_name: "fuka_1_form", type: "text")
+    params_to_form(params, @form_params, column_name: "fuka_2_name", params_name: "fuka_2_form", type: "text")
+    params_to_form(params, @form_params, column_name: "orig_name", params_name: "orig_name_form", type: "text")
     
     params[:q]["equip_eq_any"] ||= []
     params[:q]["equip_gteq_any"] ||= []
@@ -55,35 +58,40 @@ class ItemsController < ApplicationController
     if params["is_equip"] == "on" && params["no_equip"] != "on" then params[:q]["equip_gteq_any"].push(1) end
     if params["is_equip"] != "on" && params["no_equip"] == "on" then params[:q]["equip_eq_any"].push(0) end
 
-    @pc_name_form = params["pc_name_form"]
-    @result_no_form = params["result_no_form"]
-    @generate_no_form = params["generate_no_form"]
-    @e_no_form = params["e_no_form"]
-    @i_no_form = params["i_no_form"]
-    @name_form = params["name_form"]
-    @kind_form = params["kind_form"]
-    @unique_1_form = params["unique_1_form"]
-    @unique_2_form = params["unique_2_form"]
-    @value_form = params["value_form"]
-    @invation_form = params["invation_form"]
-    @encount_form = params["encount_form"]
-    @technic_form = params["technic_form"]
-    @goodwill_form = params["goodwill_form"]
-    @intelligence_form = params["intelligence_form"]
-    @stock_form = params["stock_form"]
-    @add_effect_form = params["add_effect_form"]
-    @strength_form = params["strength_form"]
-    @equip_form = params["equip_form"]
-    @fuka_1_form = params["fuka_1_form"]
-    @fuka_2_form = params["fuka_2_form"]
-    @orig_name_form = params["orig_name_form"]
-    
-    @is_equip = params["is_equip"]
-    @no_equip = params["no_equip"]
+    @form_params["is_equip"] = params["is_equip"]
+    @form_params["no_equip"] = params["no_equip"]
 
-    @show_detail_1 = (!params["is_form"]) ? "1" : params["show_detail_1"]
-    @show_detail_2 = params["show_detail_2"]
+    params[:q][:g] = {}
+    params[:q][:g]["0"] = {
+        "g" => {
+            "0" => {},
+            "1" => {},
+            "2" => {}
+        },
+        "m" => "and"
+    }
+
+    checkbox_params_set_query_any(params, @form_params, query_name: "kind_name_cont_any", params_q: params[:q][:g]["0"][:g]["0"],
+                             checkboxes: [{params_name: "type_profit", value: "徳", first_checked: false},
+                                          {params_name: "type_karma", value: "カルマ", first_checked: false},
+                                          {params_name: "type_air", value: "虚空", first_checked: false},
+                                          {params_name: "type_syura", value: "シュラ", first_checked: false}])
+
+    checkbox_params_set_query_any(params, @form_params, query_name: "kind_name_cont_any", params_q: params[:q][:g]["0"][:g]["1"],
+                             checkboxes: [{params_name: "type_guard", value: "護衛", first_checked: false},
+                                          {params_name: "type_trap", value: "罠", first_checked: false},
+                                          {params_name: "type_architecture", value: "建築", first_checked: false}])
+
+    checkbox_params_set_query_any(params, @form_params, query_name: "kind_name_cont_any", params_q: params[:q][:g]["0"][:g]["2"],
+                             checkboxes: [{params_name: "type_physics", value: "物理", first_checked: false},
+                                          {params_name: "type_cold", value: "冷気", first_checked: false},
+                                          {params_name: "type_seima", value: "聖魔", first_checked: false},
+                                          {params_name: "type_electric", value: "電撃", first_checked: false},
+                                          {params_name: "type_flame", value: "火炎", first_checked: false}])
+
     @base_first    = (!params["is_form"]) ? "1" : "0"
+    toggle_params_to_variable(params, @form_params, params_name: "show_detail_1", first_opened: true)
+    toggle_params_to_variable(params, @form_params, params_name: "show_detail_2")
   end
   # GET /items/1
   #def show
