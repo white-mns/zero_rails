@@ -23,23 +23,21 @@
       %tr
       %tr
         %td  
-        %td= f.label :result_no_form, '更新回'
-        %td.formNum{colspan: "3"}= text_field_tag :result_no_form, @result_no_form
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "更新回", params_name: "result_no_form", placeholder: nil, colspan: 3)
       %tr
         %td  
-        %td= f.label :e_no_form, 'Eno'
-        %td.formNum{colspan: "3"}= text_field_tag :e_no_form, @e_no_form
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "Eno", params_name: "e_no_form", placeholder: "Number", colspan: 3)
       %tr
         %td
-        %td= f.label :pc_name_form, 'キャラクター名'
-        %td.formText= text_field_tag :pc_name_form, @pc_name_form
-        %td= f.label :nickname_form, '愛称'
-        %td.formText= text_field_tag :nickname_form, @nickname_form
+        - td_form(f, @form_params, @placeholder, class_name: "formText", label: "キャラクター名", params_name: "pc_name_form", placeholder: "Name")
+        - td_form(f, @form_params, @placeholder, class_name: "formText", label: "愛称", params_name: "nickname_form", placeholder: "Name")
 
       %tr
         %td  
-        %td= f.label :block_no_form, 'ブロック番号'
-        %td.formNum{colspan: "3"}= text_field_tag :block_no_form, @block_no_form
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "ブロック番号", params_name: "block_no_form", colspan: 3)
+
+    - #==========================================================================================================================
+    %tbody
       %tr
         %td  
         %td= hidden_field_tag :is_form, 1
@@ -54,4 +52,10 @@
 %br
 %h3 防衛戦果
 = line_chart Transition.data_type(3).search_result(params).to_transition_graph(params), xtitle:"ターン", ytitle:"％", height: "600px", library: @library_param
+%br
+%h3 売上
+= line_chart Transition.data_type(4).search_result(params).to_transition_graph(params), xtitle:"ターン", ytitle:"money", height: "600px", library: @library_param
+%br
+%h3 捕虜
+= line_chart Transition.data_type(5).search_result(params).to_transition_graph(params), xtitle:"ターン", ytitle:"人", height: "600px", library: @library_param
 %br
