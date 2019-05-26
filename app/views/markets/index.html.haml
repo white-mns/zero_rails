@@ -113,6 +113,7 @@
     %tr
       %th= sort_link(@search, :result_no,'更新回', default_order: :desc)
       %th= sort_link(@search, :e_no,'キャラクター(Eno)', default_order: :desc)
+      %th.sep= sort_link(@search, :market_no, 'No', default_order: :desc)
       %th= sort_link(@search, :name, 'アイテム名', default_order: :desc)
       - if @form_params["show_detail_1"] == "1"
         %th.sep= sort_link(@search, :kind, '種別', default_order: :desc)
@@ -133,6 +134,7 @@
       %tr
         %td= market.result_no
         %td= pc_name_text(market.e_no, market.pc_name)
+        %td.sep= market.market_no
         %td= market.name
         - if @form_params["show_detail_1"] == "1"
           %td.sep= market.kind.name if market.kind
