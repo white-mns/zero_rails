@@ -18,12 +18,12 @@
     %nav.navbar.navbar-expand-md.fixed-top.navbar-light.bg-light.navbar-custom.p-0
       .container
         = link_to "第1回ゼロ城試遊会データ小屋", root_path, :class => "navbar-brand"
-        %button.navbar-toggler{type: "button", data: {toggle: "collapse", target: "#navbarResponsive"}, area: {controls: "navbarResponsive", expanded: "false", label: "Toggle navigation"}}
+        %button.navbar-toggler{type: "button", data: {bs: {toggle: "collapse", target: "#navbarNavDropdown"}}, area: {controls: "navbarNavDropdown", expanded: "false", label: "Toggle navigation"}}
           %span.navbar-toggler-icon
         .collapse.navbar-collapse#navbarResponsive
           %ul.navbar-nav
             %li.nav-item.dropdown
-              %a.nav-link.dropdown-toggle#themes{ :data => {:toggle =>"dropdown"}, :href => "#"}
+              %a.nav-link.dropdown-toggle#navbarDropdownMenuLink{ data: {bs: {:toggle =>"dropdown"}}, :href => "#", role: "button", area: {expanded: "false"}}
                 個人データ
                 %span.caret
               .dropdown-menu
@@ -36,7 +36,7 @@
                 .dropdown-divider
                 = link_to "メガアセンブル一覧", mega_assembles_path, class: "dropdown-item"
             %li.nav-item.dropdown
-              %a.nav-link.dropdown-toggle#themes{ :data => {:toggle =>"dropdown"}, :href => "#"}
+              %a.nav-link.dropdown-toggle#navbarDropdownMenuLink{ data: {bs: {:toggle =>"dropdown"}}, :href => "#", role: "button", area: {expanded: "false"}}
                 結果データ
                 %span.caret
               .dropdown-menu

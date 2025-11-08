@@ -68,7 +68,7 @@
       %tr
         %td.indent
         %td= f.label :stock_form, '在庫'
-        %td.formNum= text_field_tag :stock_form, @stock_form
+        %td.formNum{colspan: "3"}= text_field_tag :stock_form, @stock_form
       %tr.sep
         %td.indent
         %td= f.label :equip_form, '装備'
