@@ -5,8 +5,8 @@ class AssemblyNumsController < ApplicationController
   # GET /assembly_nums
   def index
     param_set
-    @count	= AssemblyNum.notnil().includes(:pc_name, :unit).search(params[:q]).result.count()
-    @search	= AssemblyNum.notnil().includes(:pc_name, :unit).page(params[:page]).search(params[:q])
+    @count	= AssemblyNum.notnil().includes(:pc_name, :unit).ransack(params[:q]).result.count()
+    @search	= AssemblyNum.notnil().includes(:pc_name, :unit).page(params[:page]).ransack(params[:q])
     @search.sorts = 'num desc' if @search.sorts.empty?
     @assembly_nums	= @search.result.per(50)
   end

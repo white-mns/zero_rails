@@ -5,8 +5,8 @@ class ConditionsController < ApplicationController
   # GET /conditions
   def index
     param_set
-    @count	= Condition.notnil().includes(:pc_name, :condition).search(params[:q]).result.count()
-    @search	= Condition.notnil().includes(:pc_name, :condition).page(params[:page]).search(params[:q])
+    @count	= Condition.notnil().includes(:pc_name, :condition).ransack(params[:q]).result.count()
+    @search	= Condition.notnil().includes(:pc_name, :condition).page(params[:page]).ransack(params[:q])
     @search.sorts = 'id asc' if @search.sorts.empty?
     @conditions	= @search.result.per(50)
   end

@@ -5,8 +5,8 @@ class NextBattlesController < ApplicationController
   # GET /next_battles
   def index
     param_set
-    @count	= NextBattle.notnil().includes(:pc_name, :status, :spec, :total, :attack, :support, :defense, [condition: :condition], [assembly: :orig], [regalia: :regalia], [intention: :intention], [partnership: :partnership]).search(params[:q]).result.count()
-    @search	= NextBattle.notnil().includes(:pc_name, :status, :spec, :total, :attack, :support, :defense, [condition: :condition], [assembly: :orig], [regalia: :regalia], [intention: :intention], [partnership: :partnership]).page(params[:page]).search(params[:q])
+    @count	= NextBattle.notnil().includes(:pc_name, :status, :spec, :total, :attack, :support, :defense, [condition: :condition], [assembly: :orig], [regalia: :regalia], [intention: :intention], [partnership: :partnership]).ransack(params[:q]).result.count()
+    @search	= NextBattle.notnil().includes(:pc_name, :status, :spec, :total, :attack, :support, :defense, [condition: :condition], [assembly: :orig], [regalia: :regalia], [intention: :intention], [partnership: :partnership]).page(params[:page]).ransack(params[:q])
     @search.sorts = 'id asc' if @search.sorts.empty?
     @next_battles	= @search.result.per(50)
   end

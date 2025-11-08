@@ -5,8 +5,8 @@ class PartnershipsController < ApplicationController
   # GET /partnerships
   def index
     param_set
-    @count	= Partnership.notnil().includes(:pc_name, :partnership).search(params[:q]).result.count()
-    @search	= Partnership.notnil().includes(:pc_name, :partnership).page(params[:page]).search(params[:q])
+    @count	= Partnership.notnil().includes(:pc_name, :partnership).ransack(params[:q]).result.count()
+    @search	= Partnership.notnil().includes(:pc_name, :partnership).page(params[:page]).ransack(params[:q])
     @search.sorts = 'id asc' if @search.sorts.empty?
     @partnerships	= @search.result.per(50)
   end

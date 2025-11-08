@@ -5,8 +5,8 @@ class RegaliaController < ApplicationController
   # GET /regalia
   def index
     param_set
-    @count	= Regalium.notnil().includes(:pc_name, :regalia).search(params[:q]).result.count()
-    @search	= Regalium.notnil().includes(:pc_name, :regalia).page(params[:page]).search(params[:q])
+    @count	= Regalium.notnil().includes(:pc_name, :regalia).ransack(params[:q]).result.count()
+    @search	= Regalium.notnil().includes(:pc_name, :regalia).page(params[:page]).ransack(params[:q])
     @search.sorts = 'id asc' if @search.sorts.empty?
     @regalia	= @search.result.per(50)
   end
