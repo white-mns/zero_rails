@@ -5,8 +5,8 @@ class ItemsController < ApplicationController
   # GET /items
   def index
     param_set
-    @count	= Item.notnil().includes(:pc_name, :kind, :orig, :add_effect, :fuka_1, :fuka_2).search(params[:q]).result.count()
-    @search	= Item.notnil().includes(:pc_name, :kind, :orig, :add_effect, :fuka_1, :fuka_2).page(params[:page]).search(params[:q])
+    @count	= Item.notnil().includes(:pc_name, :kind, :orig, :add_effect, :fuka_1, :fuka_2).ransack(params[:q]).result.count()
+    @search	= Item.notnil().includes(:pc_name, :kind, :orig, :add_effect, :fuka_1, :fuka_2).page(params[:page]).ransack(params[:q])
     @search.sorts = 'id asc' if @search.sorts.empty?
     @items	= @search.result.per(50)
   end
