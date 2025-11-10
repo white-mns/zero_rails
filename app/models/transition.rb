@@ -1,8 +1,17 @@
 class Transition < ApplicationRecord
+
+    def self.ransackable_attributes(auth_object = nil)
+      column_names
+    end
+
+    def self.ransackable_associations(auth_object = nil)
+      Array(reflect_on_all_associations).map(&:name).map(&:to_s)
+    end
+
 	belongs_to :pc_name, :foreign_key => [:e_no, :result_no, :generate_no], :primary_key => [:e_no, :result_no, :generate_no], :class_name => 'Name'
 
     scope :data_type, ->(type)   { includes(:pc_name).where(data_type: type) }
-    scope :search_result, ->(params) { search(params[:q]).result }
+    scope :search_result, ->(params) { ransack(params[:q]).result }
 
     scope :to_transition_graph, ->(params) {
         pc_name = Hash[*Name.pluck(:e_no, :nickname).flatten]

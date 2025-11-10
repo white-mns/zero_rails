@@ -6,8 +6,8 @@ class MarketsController < ApplicationController
   def index
     placeholder_set
     param_set
-    @count	= Market.notnil().includes(:pc_name, :kind, :orig, :add_effect, :fuka_1, :fuka_2).search(params[:q]).result.count()
-    @search	= Market.notnil().includes(:pc_name, :kind, :orig, :add_effect, :fuka_1, :fuka_2).page(params[:page]).search(params[:q])
+    @count	= Market.notnil().includes(:pc_name, :kind, :orig, :add_effect, :fuka_1, :fuka_2).ransack(params[:q]).result.count()
+    @search	= Market.notnil().includes(:pc_name, :kind, :orig, :add_effect, :fuka_1, :fuka_2).page(params[:page]).ransack(params[:q])
     @search.sorts = 'id asc' if @search.sorts.empty?
     @search.build_grouping
     @markets	= @search.result.per(50)

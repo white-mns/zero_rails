@@ -6,8 +6,8 @@ class TransitionsController < ApplicationController
   def index
     placeholder_set
     param_set
-    @count	= Transition.notnil().includes(:pc_name).search(params[:q]).result.count()
-    @search	= Transition.notnil().includes(:pc_name).page(params[:page]).search(params[:q])
+    @count	= Transition.notnil().includes(:pc_name).ransack(params[:q]).result.count()
+    @search	= Transition.notnil().includes(:pc_name).page(params[:page]).ransack(params[:q])
     @search.sorts = 'id asc' if @search.sorts.empty?
     @transitions	= @search.result.per(50)
   end
@@ -19,7 +19,7 @@ class TransitionsController < ApplicationController
     end
     placeholder_set
     param_set
-    @search	= Transition.notnil().includes(:p_name).page(params[:page]).search(params[:q])
+    @search	= Transition.notnil().includes(:p_name).page(params[:page]).ransack(params[:q])
     @search.sorts = 'id asc' if @search.sorts.empty?
     @library_param = {
         interpolateNulls: true
